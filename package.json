@@ -1,15 +1,17 @@
 {
-  "name": "ct",
-  "version": "0.0.1",
+  "name": "@vyacheslav97/ct",
+  "version": "0.0.8",
   "description": "",
   "exports": {
-    "./implementations/uic/*": "./dist/implementations/uic/*",
-    "./interfaces/uic/interfaces.d.ts": "./dist/interfaces/uic/interfaces.d.ts"
+    "./uic/*": "./dist/implementations/uic/*",
+    "./interfaces/uic/*": "./dist/interfaces/uic/*"
   },
   "scripts": {
     "build": "tsc && tsc-alias",
-    "test": "jest --verbose testsArea/tests",
-    "clean": "if exist dist ( rd /S /Q dist)"
+    "test": "jest --verbose ./testsArea/tests",
+    "prepublish": "npm run build",
+    "dist": "npm run prepublish && npm publish --access public",
+    "prepare": "npm run test"
   },
   "author": "WalterWerner",
   "license": "MIT",
@@ -20,5 +22,8 @@
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.8",
     "typescript": "^5.4.2"
-  }
+  },
+  "files": [
+    "dist/"
+  ]
 }
