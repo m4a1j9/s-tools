@@ -1,6 +1,6 @@
 {
   "name": "@vyacheslav97/ct",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "exports": {
     "./uic/*": "./dist/implementations/uic/*",
