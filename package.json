@@ -1,10 +1,21 @@
 {
+  "type": "module",
   "name": "@vyacheslav97/ct",
   "version": "0.0.9",
   "description": "",
   "exports": {
-    "./uic/*": "./dist/implementations/uic/*",
-    "./interfaces/uic/*": "./dist/interfaces/uic/*"
+    "./uic": {
+      "import": "./dist/implementations/uic/uic.js",
+      "types": "./dist/implementations/uic/uic.d.ts"
+    },
+    "./uicsds": {
+      "import": "./dist/implementations/uic/uicsds.js",
+      "types": "./dist/implementations/uic/uicsds.d.ts"
+    },
+    "./uic/interfaces": {
+      "import": "./dist/interfaces/uic/interfaces.js",
+      "types": "./dist/interfaces/uic/interfaces.d.ts"
+    }
   },
   "scripts": {
     "build": "tsc && tsc-alias",
