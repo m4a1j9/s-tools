@@ -12,15 +12,15 @@ Tip: questions bother your head? Feel free to contact me: https://t.me/WernerWal
 <a id="uic"></a>
 ## Universal iterable converter (UIC)
 
-UIC module provides a user with two functions: **transformToIterable** and its wrapper, **createIterableTransformer**. UIC module is represened by uic.ts file of original project.
+UIC module provides a user with two functions: **transformToIterable** and its wrapper, **createIterableTransformer**. UIC module is represented by uic.ts file of original project.
 
 **transformToIterable** is a core procedure - it defines the way an input iterable is converted to an output one. 
 **createIterableTransformer** wraps **transformToIterable** to create an iterable convertor with encapsulated target iterable constructor. 
 
 **transformToIterable** algorithm essentials:
 
-- Accepts 3 arguments: source iterable object, target iterable constructor and source iterable value coverter (the last is optional)
-- Sometimes source iterable can be consumed by target iterable constructor as it is, then source iterable value converter may be ommited
+- Accepts 3 arguments: source iterable object, target iterable constructor and source iterable value converter (the last is optional)
+- Sometimes source iterable can be consumed by target iterable constructor as it is, then source iterable value converter may be omitted
 - Otherwise, a proxy iterable is created, that wraps source iterable values in source iterable value converter. Then this proxy iterable is passed to a target iterable constructor
 
 ### Usage notes
@@ -77,8 +77,8 @@ import {createArrayToMap, createMapToSet} from '@vyacheslav97/ct/uic/uicsds.js';
 
 ### Usage notes
 
-Its pretty easy to use:
-- first, just import catched your eye transformer creator
+It's pretty easy to use:
+- first, just import caught your eye transformer creator
 - then specify source iterable transformation function
 - finally create your iterable converter
 
@@ -86,7 +86,7 @@ Its pretty easy to use:
 Example:
 
 ```ts
-// All needed type aliases for convertion laws can be imported as follows:
+// All needed type aliases for conversion laws can be imported as follows:
 import {
   SingleToPair,
   SingleToSingle,
@@ -108,7 +108,7 @@ keyValuepairConcatenated(new Map([[1, 1], [2, 2]])); // results in '1122'
 ## Current known issues
 
 Webstorm (always) and VS Code (sometimes) can't autocomplete imports and don't fetch doc strings content. 
-Inspite of this issue test project with simple webpack configurations assebles well and runs installed module code smoothly.
+Despite this issue test project with simple webpack configurations assembles well and runs installed module code smoothly.
 If you now how to handle described issue via tuning ct package in particular, please, feel free to contact me. I'll appreciate your help.
 
 
