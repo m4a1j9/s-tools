@@ -28,7 +28,7 @@ UIC module provides a user with two functions: **transformToIterable** and its w
 UIC members  can be imported as follows:
 
 ```ts
-import {createIterableTransformer, transformToIterable} from '@vyacheslav97/ct/uic/uic.js';
+import {createIterableTransformer, transformToIterable} from '@vyacheslav97/ct/uic';
 ```
 
 
@@ -72,7 +72,7 @@ UICSDS module consists of **createIterableTransformer** applications to built-in
 UICSDS module members can be imported as follows:
 
 ```ts
-import {createArrayToMap, createMapToSet} from '@vyacheslav97/ct/uic/uicsds.js';
+import {createArrayToMap, createMapToSet} from '@vyacheslav97/ct/uicsds';
 ```
 
 ### Usage notes
@@ -91,7 +91,7 @@ import {
   SingleToPair,
   SingleToSingle,
   PairToSingle
-} from "@vyacheslav97/ct/interfaces/uic/interfaces.js";
+} from "@vyacheslav97/uic/interfaces";
 
 // Map item to a character transformer 
 const keyValuePairConcatenatedTransformer: PairToSingle<number, number, string>
