@@ -16,7 +16,10 @@
      "paths": {
        "@uic": ["src/implementations/uic/uic.ts"],
        "@uicsds": ["src/implementations/uic/uicsds.ts"],
-       "@uic/interfaces": ["src/interfaces/uic/interfaces.ts"]
+       "@uic/interfaces": ["src/interfaces/uic/interfaces.ts"],
+       "@graphs/graph": ["src/implementations/graphs/graph.ts"],
+       "@graphs/tree": ["src/implementations/graphs/tree.ts"],
+       "@graphs/interfaces": ["src/interfaces/graphs/interfaces.ts"]
      },
      "declaration": true,
      "emitDeclarationOnly": false,
