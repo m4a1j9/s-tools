@@ -1,20 +1,13 @@
 import {
     GraphConfig,
     GraphInterface,
-    GraphNodeInterface, LevelingStepFunction, PathBuilder
+    GraphNodeInterface,
+    LevelingStepFunction,
+    PathBuilder,
 } from '@graphs/interfaces';
 
-const errorsEmitters = {
-    nodeAlreadyExists(nodeId: string) {
-        throw Error(`Node with ID ${nodeId} already exists on this graph`);
-    },
-    nodeDoesntExist(nodeId: string) {
-        throw Error(`Node with ID ${nodeId} doesn't exists on this graph`);
-    },
-    noPathFinderSpecified() {
-        throw Error('No path finder specified');
-    }
-};
+import {graphErrorsEmitters} from '@utils/errorEmitters';
+import * as console from "node:console";
 
 /**
  * **Graph** class represents graph abstraction.
@@ -101,7 +94,6 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
      * @param nodeToAdd node to add, GraphNodeInterface<**NodeData**>
      */
     addNode(nodeToAdd: GraphNodeInterface<NodeData>) {
-
         const {
             nodeId: nodeToAddId,
             incomingBoundaries,
@@ -109,7 +101,7 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
         } = nodeToAdd;
 
         if(this.hasNode(nodeToAddId)) {
-            errorsEmitters.nodeAlreadyExists(nodeToAddId);
+            graphErrorsEmitters.nodeAlreadyExists(nodeToAddId);
         }
 
         incomingBoundaries.forEach((nodeId) => {
@@ -120,7 +112,7 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
                 return;
             }
 
-            errorsEmitters.nodeDoesntExist(nodeId);
+            graphErrorsEmitters.nodeDoesntExist(nodeId);
 
         });
 
@@ -133,7 +125,7 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
                 return;
             }
 
-            errorsEmitters.nodeDoesntExist(nodeId);
+            graphErrorsEmitters.nodeDoesntExist(nodeId);
 
         });
 
@@ -147,7 +139,6 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
      */
     removeNode(nodeId: string) {
         const nodeToRemove = this.getNode(nodeId);
-
         if(nodeToRemove) {
 
             const {
@@ -177,6 +168,8 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
 
         }
 
+        this.nodes.delete(nodeId);
+
         return nodeToRemove;
     }
 
@@ -189,6 +182,13 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
         this.flatten = this.buildFlattenProcedure(levelingStepFunction);
     }
 
+    /**
+     * Initializes **buildPath** method
+     * @param pathFinder a pathfinder algorithm implementing function
+     */
+    setPathFinderProcedure(pathFinder?: PathBuilder<NodeData>) {
+        this.buildPath = this.buildPathFinder(pathFinder);
+    }
 
     /**
      * Builds graph flatten procedure
@@ -212,7 +212,7 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
                 let currentNode = this.getNode(startNodeId) || null;
 
                 if(!currentNode) {
-                    errorsEmitters.nodeDoesntExist(startNodeId);
+                    graphErrorsEmitters.nodeDoesntExist(startNodeId);
                     return flattenedGraph;
                 }
 
@@ -253,22 +253,22 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
      */
     buildPathFinder(pathFinder?: PathBuilder<NodeData>) {
 
-        if(!pathFinder) {
-            errorsEmitters.noPathFinderSpecified();
-            return;
-        }
-
         return (startNodeId: string, endNodeId: string) => {
+
+            if(!pathFinder) {
+                graphErrorsEmitters.noPathFinderSpecified();
+                return;
+            }
 
             const startNode = this.getNode(startNodeId);
             const endNode = this.getNode(endNodeId);
 
             if(!startNode) {
-                errorsEmitters.nodeDoesntExist(startNodeId);
+                graphErrorsEmitters.nodeDoesntExist(startNodeId);
                 return;
             }
             if(!endNode) {
-                errorsEmitters.nodeDoesntExist(endNodeId);
+                graphErrorsEmitters.nodeDoesntExist(endNodeId);
                 return;
             }
 

@@ -19,7 +19,11 @@
        "@uic/interfaces": ["src/interfaces/uic/interfaces.ts"],
        "@graphs/graph": ["src/implementations/graphs/graph.ts"],
        "@graphs/tree": ["src/implementations/graphs/tree.ts"],
-       "@graphs/interfaces": ["src/interfaces/graphs/interfaces.ts"]
+       "@graphs/interfaces": ["src/interfaces/graphs/interfaces.ts"],
+       "@utils/errorEmitters":
+       [
+         "src/utilsArea/errorEmitters/graphErrorEmitters.ts"
+       ]
      },
      "declaration": true,
      "emitDeclarationOnly": false,
