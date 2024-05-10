@@ -1,9 +1,6 @@
 import Graph from '@graphs/graph';
 import {GraphConfig, GraphNodeInterface, TreeNodeExtraData} from '@graphs/interfaces';
-import {
-    treeErrorsEmitters
-} from '@utils/errorEmitters';
-
+import {treeErrorsEmitters} from '@utils/treeErrorsEmitters';
 
 /**
  * **Tree** class represents tree abstraction extending **Graph** class.

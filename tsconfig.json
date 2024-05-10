@@ -20,10 +20,8 @@
        "@graphs/graph": ["src/implementations/graphs/graph.ts"],
        "@graphs/tree": ["src/implementations/graphs/tree.ts"],
        "@graphs/interfaces": ["src/interfaces/graphs/interfaces.ts"],
-       "@utils/errorEmitters":
-       [
-         "src/utilsArea/errorEmitters/graphErrorEmitters.ts"
-       ]
+       "@utils/graphErrorsEmitters": ["src/utilsArea/errorEmitters/graphErrorEmitters.ts"],
+       "@utils/treeErrorsEmitters": ["src/utilsArea/errorEmitters/treeErrorEmitters.ts"]
      },
      "declaration": true,
      "emitDeclarationOnly": false,

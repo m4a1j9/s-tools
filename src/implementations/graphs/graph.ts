@@ -6,7 +6,7 @@ import {
     PathBuilder,
 } from '@graphs/interfaces';
 
-import {graphErrorsEmitters} from '@utils/errorEmitters';
+import {graphErrorsEmitters} from '@utils/graphErrorsEmitters';
 
 /**
  * **Graph** class represents graph abstraction.
