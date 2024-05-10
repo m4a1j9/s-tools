@@ -5,7 +5,7 @@ import {
     PathBuilder,
 } from '@graphs/interfaces';
 
-interface SomeUserData {
+export interface SomeUserData {
     someData: number,
 }
 

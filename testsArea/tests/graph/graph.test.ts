@@ -6,6 +6,7 @@ import {
     levelingStepFunction,
     pathFinder,
     cloneDeepNodesList,
+    SomeUserData,
 } from '../../testsData/graph/graphTestsData';
 
 
@@ -144,5 +145,21 @@ describe('Graph Tests', () => {
             expect(linkedListWithNoData.buildPath('thirdNode', 'thirdNode')).toEqual(nodeWithNoDataImplicitlyModified.slice(2));
         });
     });
+
+    describe('adding user specific data tests',  () => {
+       const deepClonedNodesWithData = cloneDeepNodesList(nodesWithData);
+       const linkedListWithData = new Graph<SomeUserData>();
+       deepClonedNodesWithData.forEach(node => {
+          linkedListWithData.addNode(node);
+       });
+       it('Should add nodes with user specific data', () => {
+           deepClonedNodesWithData.forEach(node => {
+              expect(node).toEqual(linkedListWithData.getNode(node.nodeId));
+           });
+       });
+
+    });
+
+
 
 });
