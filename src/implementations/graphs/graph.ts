@@ -7,7 +7,6 @@ import {
 } from '@graphs/interfaces';
 
 import {graphErrorsEmitters} from '@utils/errorEmitters';
-import * as console from "node:console";
 
 /**
  * **Graph** class represents graph abstraction.

@@ -36,3 +36,7 @@ export interface GraphConfig<NodeData = void> {
     levelingStepFunction?: LevelingStepFunction<NodeData>,
     pathFinder?: PathBuilder<NodeData>,
 }
+
+export interface TreeNodeExtraData {
+    parentNodeId: string,
+}
