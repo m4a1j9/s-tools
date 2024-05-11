@@ -1,5 +1,6 @@
 import Graph from '@graphs/graph';
-import {graphErrorMessages} from '@utils/errorEmitters';
+import {graphErrorMessages} from '@utils/graphErrorsEmitters';
+
 import {
     nodesWithNoData,
     nodesWithData,

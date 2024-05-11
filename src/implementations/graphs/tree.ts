@@ -1,7 +1,6 @@
 import Graph from '@graphs/graph';
 import {GraphConfig, GraphNodeInterface, TreeNodeExtraData} from '@graphs/interfaces';
 import {treeErrorsEmitters} from '@utils/treeErrorsEmitters';
-
 /**
  * **Tree** class represents tree abstraction extending **Graph** class.
  *
@@ -30,7 +29,7 @@ class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
      * - Has more than one incoming or outgoing boundary
      * - First added node has **parentNodeId**
      * - Node of the same **nodeId** already exists on a tree instance
-     * - Node has **parentNodeId** out its **incomingBoundaries** or **outgoingBoundaries**
+     * - Node has **parentNodeId** out of its **incomingBoundaries** or **outgoingBoundaries**
      */
     addNode(nodeToAdd: GraphNodeInterface<NodeData>) {
         const {
@@ -44,13 +43,13 @@ class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
 
             if(this.nodes.size === 0) {
                 if([incomingBoundaries, outgoingBoundaries].every(x => x.size === 0)) {
-                    if(nodeToAdd.nodeData!.parentNodeId) {
+                    if(nodeToAdd.nodeData?.parentNodeId) {
                         treeErrorsEmitters.noParentNodeForRoot();
                     }
                     this.rootNodeId = nodeToAdd.nodeId;
                     super.addNode(nodeToAdd);
+                    return;
                 }
-                return;
             }
 
             if(incomingBoundaries.size === 1 && outgoingBoundaries.size === 1) {
