@@ -1,15 +1,38 @@
 # <u>Common tools (ct, also @vyacheslav97/ct)</u>
 
-Common tools (hereinafter referred to as **ct**) - a common JavaScript data structures and associated processing procedures package. 
+Common tools (hereinafter referred to as **ct**) - a common JavaScript data structures and associated processing procedures package ([package repository](https://github.com/VyacheslavMishin/ct/tree/master)). 
 
-Tip: questions bother your head? Feel free to contact me: https://t.me/WernerWalter
+Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
+
+
+
+Current version renewals:
+
+- [Graph abstract class](#GraphAbstractClass)
+- [Tree abstract class](TreeAbstractClass)
+
+Next scheduled updates:
+
+- History abstract class
+- Binary search procedure template
+- Unique values searcher procedure template
+- Default pathfinder template based on BFS algorithm
+- Default leveling step function based on DFS algorithm
+
+
+
+## Prerequisites
+
+To get along with this module (e.g. enable IntelliSense), enable in consumer project **tsconfig.json** **resolvePackageJsonImports**, **resolvePackageJsonExports** options, also check **module** and **moduleResolution** are **Node16**.
 
 # Module guts
 - [Universal iterable converter (UIC)](#uic)
 - [Universal iterable converter (standard data structures, UICSDS)](#uicsds)
-- [Current known issues](#KnownIssues)
+- [Graph abstract class](#GraphAbstractClass)
+- [Tree abstract class](TreeAbstractClass)
 
 <a id="uic"></a>
+
 ## Universal iterable converter (UIC)
 
 UIC module provides a user with two functions: **transformToIterable** and its wrapper, **createIterableTransformer**. UIC module is represented by uic.ts file of original project.
@@ -30,7 +53,6 @@ UIC members  can be imported as follows:
 ```ts
 import {createIterableTransformer, transformToIterable} from '@vyacheslav97/ct/uic';
 ```
-
 
 **createIterableTransformer** is highly recommended for usage instead of **transformToIterable** to avoid redundant target iterable constructor referencing.
 For example, lets inspect a **createIterableTransformer** application from **uicsds.ts**:
@@ -104,18 +126,249 @@ keyValuepairConcatenated(new Map([[1, 1], [2, 2]])); // results in '1122'
 
 ```
 
-<a id="KnownIssues"></a>
-## Current known issues
-
-Webstorm (always) and VS Code (sometimes) can't autocomplete imports and don't fetch doc strings content. 
-Despite this issue test project with simple webpack configurations assembles well and runs installed module code smoothly.
-If you now how to handle described issue via tuning ct package in particular, please, feel free to contact me. I'll appreciate your help.
 
 
+<a id="GraphAbstractClass"></a>
 
-# Roadmap
+## Graph abstract class
 
-Next scheduled implementations:
+Graph abstract class implements oriented graph abstraction with basic graph content manipulations: adding nodes, deleting nodes. 
 
-- Oriented graph data structure, able to handle adding and deleted nodes, to search for node using built-in DFS and BFS algorithms or via user-specified procedure. Tree data structure as a child of oriented graph is implied to be realized in most generalized way to be adopted to various existing trees: binary trees, RB trees and so on
-- Standard generalized algorithms like binary search, unique values search and so on
+Graph node is represented via following generic interface:
+
+```ts
+interface GraphNodeInterface<NodeData = void> {
+    nodeId: string, // unic graph node identifier
+    // set of other graph nodes ids, from which boundaries are received
+    incomingBoundaries: Map<string, string>,
+    // set of other graph nodes which receive boundaries from a given node
+    outgoingBoundaries: Map<string, string>,
+    // Extra node data, may be ommited
+    nodeData?: NodeData,
+}
+```
+
+Graph class itself implements next interface:
+
+```ts
+interface GraphInterface<NodeData = void> {
+	// base data structure containing all graph nodes
+    nodes: Map<string, GraphNodeInterface<NodeData>>,
+    
+    getNode: (nodeId: string) => GraphNodeInterface<NodeData> | undefined,
+    getNodeData: (nodeId: string) => NodeData | undefined,
+
+	
+    hasNode: (nodeId: string) => boolean,
+    addNode: (node: GraphNodeInterface<NodeData>) => void,
+    removeNode: (nodeId: string) => GraphNodeInterface<NodeData> | undefined,
+
+    flatten: (startNodeId: string) => Iterable<GraphNodeInterface<NodeData>>,
+    buildPath: (startNodeId: string, endNodeId: string) => GraphNodeInterface<NodeData>[] | undefined,
+}
+```
+
+Some methods are not covered above:
+
+- **setFlattenProcedure** - initializes **flatten** method via user defined leveling step function
+- **setPathFinderProcedure** - initializes **buildPath** method via user defined pathfinder
+- **buildFlattenProcedure**, **buildPathFinder** - are used for two previous method, it is highly recommended to avoid calling these methods
+
+
+
+### Usage notes
+
+Import Graph class: (after prepublish procedures)
+
+
+#### Initialization
+
+Graph can be initialized via its constructor if proper set of arguments is passed. 
+
+Graph constructor expects following arguments:
+
+```ts
+constructor(
+    sourceIterable?: Iterable<[string, GraphNodeInterface<NodeData>]>,
+    config?: GraphConfig<NodeData>,
+)
+```
+
+Where **GraphConfig<NodeData>**:
+
+```ts
+interface GraphConfig<NodeData = void> {
+    levelingStepFunction?: LevelingStepFunction<NodeData>,
+    pathFinder?: PathBuilder<NodeData>,
+}
+
+type LevelingStepFunction<NodeData = void> = (
+    currentNode: GraphNodeInterface<NodeData>,
+    sourceGraph: GraphInterface<NodeData>,
+) => GraphNodeInterface<NodeData> | null;
+
+type PathBuilder<NodeData = void> = (
+    startNode: GraphNodeInterface<NodeData>,
+    endNode: GraphNodeInterface<NodeData>,
+    sourceGraph: GraphInterface<NodeData>,
+) => GraphNodeInterface<NodeData>[];
+
+```
+
+**<u>USE WITH CAUTION</u>**: source iterable is passed to **Map** constructor as it is, with no input nodes validation (for now). You should not expect graph constructor to build edges. In future updates such validation is **planned to be implemented**.
+
+If no constructor arguments are specified, empty graph instance is created.
+
+Soon graph instance was created, nodes can be added to it via **addMethod**:
+
+```ts
+/**
+ * Adds node to graph. Throws error if node of the same id already exists
+ * @param nodeToAdd node to add, GraphNodeInterface<**NodeData**>
+ */
+addNode(nodeToAdd: GraphNodeInterface<NodeData>)
+```
+
+**addNode** adds a node to graph instance and all specified within that node edges.
+
+Any node of graph instance can be retrieved using **getNode** method:
+
+```ts
+/**
+ * Returns graph node of specified id, if graph has node with such id
+ * @param nodeId target node id, **string**
+ */
+getNode(nodeId: string)
+```
+
+To retrieve **nodeData** you can use method **getNodeData**, which expects target node id as an argument.
+
+To check whether graph possesses a node, use **hasNode** method (expects node id as an argument).
+
+To remove some specific node, use **removeNode** method:
+
+```ts
+/**
+ * Removes node of given id. Does nothing if wrong id is provided
+ * @param nodeId id of node to remove, **string**
+ */
+removeNode(nodeId: string)
+```
+
+If graph is needed to be flattened, use **flatten** method. It returns an iterable, which can be used to convert a graph instance into array.
+
+To find path between two specific nodes of given graph, use **buildPath** method.
+
+**flatten** and **builtPath** have own peculiarities: both can be overridden, but only **flatten** has default behavior -  it returns **nodes** field **values** iterable if no custom flatten procedure is specified.
+
+To override **flatten** procedure, use **setFlattenProcedure** method. 
+
+Example:
+
+```ts
+// Has to gain one node from another. If it turns impossible - returns null
+const levelingStepFunction: LevelingStepFunction<unknown> = ( // function for "linked list"
+    currentNode: GraphNodeInterface<unknown>,
+    graph: GraphInterface<unknown>,
+) => {
+    const {
+        outgoingBoundaries,
+    } = currentNode;
+    const firstOutgoingBoundary = [...outgoingBoundaries]?.[0]?.[0];
+
+    return graph.getNode(firstOutgoingBoundary) || null;
+
+};
+
+const graph = new Graph();
+
+graph.setFlattenProcedure(levelingStepFunction);
+
+// then call [...graph.flatten('someStartNodeId')], for example, or use for ... of, or whatever
+
+```
+
+
+To initialize or override **buildPath** method, call **setPathFinderProcedure** method. 
+
+Example:
+
+```ts
+// Simple pathfinder for "linked list" 
+const pathFinder: PathBuilder<unknown> = (
+    startNode: GraphNodeInterface<unknown>,
+    endNode: GraphNodeInterface<unknown>,
+    graph: GraphInterface<unknown>,
+) => {
+
+    let currentNode: GraphNodeInterface<unknown> = startNode;
+    const result: GraphNodeInterface<unknown>[] = [];
+
+    do {
+        result.push(currentNode);
+        currentNode = graph.getNode([...currentNode.outgoingBoundaries]?.[0]?.[0])!;
+    } while(result[result.length - 1]?.nodeId !== endNode.nodeId)
+
+    return result;
+
+};
+
+const graph = new Graph();
+graph.setPathFinderProcedure(pathFinder);
+
+// here you go, call graph.buildPath('startNodeId', 'endNodeId');
+// BUT REMEMBER: invalid node ids (e.g. absent one) will trigger an error
+
+```
+
+**buildPath** call with no initialization triggers an error.
+
+<a id="TreeAbstractClass"></a>
+
+## Tree abstract class
+
+Import Tree class: (after prepublish procedure)
+
+**Tree** abstract class extends **Graph** abstract class. This extension brings in following mutations:
+
+- **addNode**: 
+
+  ```ts
+  /**
+   * Adds node to a tree instance, avoiding loops generation
+   * @param nodeToAdd node data to add
+   *
+   * Throws error, if:
+   * - Has more than one incoming or outgoing boundary
+   * - First added node has **parentNodeId**
+   * - Node of the same **nodeId** already exists on a tree instance
+   * - Node has **parentNodeId** out of its **incomingBoundaries** or **outgoingBoundaries**
+   */
+  addNode(nodeToAdd: GraphNodeInterface<NodeData>)
+  ```
+
+- **removeNode**:
+
+  ```ts
+  /**
+   * Removes a node from a tree instance (and the node whole subtree by default)
+   * Doesn't remove a node if it doesn't exist on the tree instance
+   * @param nodeId id of node to remove
+   * @param deleteSubTree if true (by default) node and its subtree are removed
+   */
+  removeNode(nodeId: string, deleteSubTree = true)
+  ```
+
+- **rootNodeId** added - it contains tree root node id
+
+- **nodeData** field becomes mandatory (but remains extensible): it has to contain **parentNodeId** field for each tree node except root one
+
+- Constructor signature changes slightly: 
+
+  ```ts
+  constructor(
+          rootNodeId: string = '',
+          sourceIterable?: Iterable<[string, GraphNodeInterface<NodeData>]>,
+          config?: GraphConfig<NodeData>,
+      )
+  ```
