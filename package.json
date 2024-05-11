@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@vyacheslav97/ct",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "",
   "exports": {
     "./uic": {
@@ -15,6 +15,18 @@
     "./uic/interfaces": {
       "import": "./dist/interfaces/uic/interfaces.js",
       "types": "./dist/interfaces/uic/interfaces.d.ts"
+    },
+    "./graph": {
+      "import": "./dist/implementations/graphs/graph.js",
+      "types": "./dist/implementations/graphs/graph.d.ts"
+    },
+    "./tree": {
+      "import": "./dist/implementations/graphs/tree.js",
+      "types": "./dist/implementations/graphs/tree.d.ts"
+    },
+    "./graphs/interfaces": {
+      "import": "./dist/interfaces/graphs/interfaces.js",
+      "types": "./dist/interfaces/graphs/interfaces.d.ts"
     }
   },
   "scripts": {

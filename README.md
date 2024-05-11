@@ -4,8 +4,6 @@ Common tools (hereinafter referred to as **ct**) - a common JavaScript data stru
 
 Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
 
-
-
 Current version renewals:
 
 - [Graph abstract class](#GraphAbstractClass)
@@ -178,7 +176,14 @@ Some methods are not covered above:
 
 ### Usage notes
 
-Import Graph class: (after prepublish procedures)
+Import Graph class: 
+
+```ts
+import Graph from '@vyacheslav97/ct/graph';
+// All necessary interfaces can be imported from '@vyacheslav97/ct/graphs/interfaces'
+```
+
+
 
 
 #### Initialization
@@ -327,7 +332,11 @@ graph.setPathFinderProcedure(pathFinder);
 
 ## Tree abstract class
 
-Import Tree class: (after prepublish procedure)
+Import Tree class: 
+
+```ts
+import Tree from '@vyacheslav97/ct/tree';
+```
 
 **Tree** abstract class extends **Graph** abstract class. This extension brings in following mutations:
 
