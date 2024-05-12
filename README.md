@@ -7,7 +7,7 @@ Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWa
 Current version renewals:
 
 - [Graph abstract class](#GraphAbstractClass)
-- [Tree abstract class](TreeAbstractClass)
+- [Tree abstract class](#TreeAbstractClass)
 
 Next scheduled updates:
 
@@ -27,7 +27,7 @@ To get along with this module (e.g. enable IntelliSense), enable in consumer pro
 - [Universal iterable converter (UIC)](#uic)
 - [Universal iterable converter (standard data structures, UICSDS)](#uicsds)
 - [Graph abstract class](#GraphAbstractClass)
-- [Tree abstract class](TreeAbstractClass)
+- [Tree abstract class](#TreeAbstractClass)
 
 <a id="uic"></a>
 
@@ -85,6 +85,7 @@ arrayToMapShifted([1, 2, 3]) //--> {1 -> 2, 2 -> 3, 3 -> 4} - final Map object c
 Remember, you are able to create your own custom iterable transformers!
 
 <a id="uicsds"></a>
+
 ## Universal iterable converter (standard data structures, UICSDS)
 
 UICSDS module consists of **createIterableTransformer** applications to built-in JavaScript iterable datastructures. uicsds.ts represents UICSDS module content.
