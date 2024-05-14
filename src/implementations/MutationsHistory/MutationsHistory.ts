@@ -43,10 +43,17 @@ class MutationsHistory<HistoryUnitType> implements MutationsHistoryInterface<His
 
 
     addMutation(mutation: HistoryUnitType) {
-        this.commitedMutations.push(mutation);
+
         if(this.canceledMutations.length) {
+
             this.canceledMutations = [];
+
+            if(this.lastSavedChangeIndex >= this.commitedMutations.length) {
+                this.lastSavedChangeIndex = -1;
+            }
         }
+
+        this.commitedMutations.push(mutation);
     }
 
     cancelLastMutation() {
