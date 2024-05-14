@@ -25,7 +25,9 @@
        "@mutationsHistory/interfaces": ["src/interfaces/MutationsHistory/interfaces.ts"],
        "@mutationsHistory": ["src/implementations/MutationsHistory/MutationsHistory.ts"],
        "@algorithms/binarySearch": ["src/implementations/algorithms/binarySearch.ts"],
-       "@algorithms/binarySearch/interfaces": ["src/interfaces/algorithms/binarySearch.ts"]
+       "@algorithms/binarySearch/interfaces": ["src/interfaces/algorithms/binarySearch.ts"],
+       "@algorithms/duplicatesSearcher": ["src/implementations/algorithms/duplicatesSearcher.ts"],
+       "@algorithms/duplicatesSearcher/interfaces": ["src/interfaces/algorithms/duplicatesSearcher.ts"]
      },
      "declaration": true,
      "emitDeclarationOnly": false,
