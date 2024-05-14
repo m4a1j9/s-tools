@@ -23,7 +23,9 @@
        "@utils/graphErrorsEmitters": ["src/utilsArea/errorEmitters/graphErrorEmitters.ts"],
        "@utils/treeErrorsEmitters": ["src/utilsArea/errorEmitters/treeErrorEmitters.ts"],
        "@mutationsHistory/interfaces": ["src/interfaces/MutationsHistory/interfaces.ts"],
-       "@mutationsHistory": ["src/implementations/MutationsHistory/MutationsHistory.ts"]
+       "@mutationsHistory": ["src/implementations/MutationsHistory/MutationsHistory.ts"],
+       "@algorithms/binarySearch": ["src/implementations/algorithms/binarySearch.ts"],
+       "@algorithms/binarySearch/interfaces": ["src/interfaces/algorithms/binarySearch.ts"]
      },
      "declaration": true,
      "emitDeclarationOnly": false,
