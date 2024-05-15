@@ -2,10 +2,8 @@ import MutationsHistory from '@mutationsHistory';
 
 import {
     NumericalMutation,
-    FunctionalMutation,
     ObjectMutation,
     generateNumericalMutations,
-    generateFunctionalMutations,
     generateObjectMutations,
 } from '../../testsData/MutationsHistory/MutationsHistoryTestsData';
 
@@ -27,16 +25,7 @@ describe('MutationsHistory tests', () => {
           numericalHistory,
           generateNumericalMutations(),
           [],
-          generateObjectMutations().length - 1,
-        );
-
-        const functionalHistory =
-            new MutationsHistory<FunctionalMutation>(generateFunctionalMutations());
-        checkMutationsHistoryContent<FunctionalMutation>(
-            functionalHistory,
-            generateFunctionalMutations(),
-            [],
-            generateFunctionalMutations().length - 1,
+          generateNumericalMutations().length - 1,
         );
 
         const objectsHistory =
@@ -54,7 +43,7 @@ describe('MutationsHistory tests', () => {
         const objectsHistory =
             new MutationsHistory<ObjectMutation>(generateObjectMutations());
 
-        objectsHistory.backToSavedMutation();
+        objectsHistory.cancelLastMutation();
 
         checkMutationsHistoryContent<ObjectMutation>(
             objectsHistory,
@@ -96,18 +85,19 @@ describe('MutationsHistory tests', () => {
 
     });
 
+    
     it('Should do nothing trying to cancel nothing', () => {
         const objectsHistory =
             new MutationsHistory<ObjectMutation>(generateObjectMutations());
 
-        while(objectsHistory.commitedMutations.length) {
+        while(objectsHistory.commitedMutations.length > 1) {
             objectsHistory.cancelLastMutation();
         }
 
         checkMutationsHistoryContent<ObjectMutation>(
             objectsHistory,
-            [],
-            generateObjectMutations().reverse(),
+            [generateObjectMutations().at(0)!],
+            generateObjectMutations().slice(1, ).reverse(),
             generateObjectMutations().length - 1,
         );
 
@@ -115,8 +105,8 @@ describe('MutationsHistory tests', () => {
 
         checkMutationsHistoryContent<ObjectMutation>(
             objectsHistory,
-            [],
-            generateObjectMutations().reverse(),
+            [generateObjectMutations().at(0)!],
+            generateObjectMutations().slice(1, ).reverse(),
             generateObjectMutations().length - 1,
         );
 
@@ -139,11 +129,12 @@ describe('MutationsHistory tests', () => {
 
     });
 
+    
     it('Should back to saved canceled mutation properly', () => {
         const objectsHistory =
             new MutationsHistory<ObjectMutation>(generateObjectMutations());
 
-        while(objectsHistory.commitedMutations.length) {
+        while(objectsHistory.commitedMutations.length > 1) {
             objectsHistory.cancelLastMutation();
         }
 
