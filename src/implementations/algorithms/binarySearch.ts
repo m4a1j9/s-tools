@@ -3,6 +3,14 @@ import {
 } from '@algorithms/binarySearch/interfaces';
 
 
+/**
+ * Binary search function template
+ * @param sourceList list (**Array**) for binary search
+ * @param target target one is looking for
+ * @param comparator function that compares array items with each other.
+ * Source list must be sorted according to comparator function
+ * @returns target index if found, undefined otherwise
+ */
 export const binarySearch = <ArrayUnit>(
     sourceList: ArrayUnit[],
     target: ArrayUnit,
@@ -40,6 +48,10 @@ export const binarySearch = <ArrayUnit>(
 
 };
 
+/**
+ * Creates instance of binary search template with predefined comparator
+ * @param comparator comparator function
+ */
 export const buildBinarySearch = <ArrayUnit>(comparator: comparator<ArrayUnit>) => {
     return (sourceList: ArrayUnit[], target: ArrayUnit) => binarySearch(sourceList, target, comparator);
 }
