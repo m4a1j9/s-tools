@@ -3,6 +3,17 @@
   "name": "@vyacheslav97/ct",
   "version": "0.0.13",
   "description": "",
+  "keywords": [
+    "tools",
+    "common tools",
+    "standard tools",
+    "iterable converter",
+    "graph",
+    "tree",
+    "algorithms",
+    "binary search",
+    "duplicates search"
+  ],
   "exports": {
     "./uic": {
       "import": "./dist/implementations/uic/uic.js",
