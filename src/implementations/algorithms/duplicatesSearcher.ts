@@ -7,28 +7,32 @@ export const duplicatesSearcher =
 <T, V = T>(
     source: Iterable<T>,
     valueExtractor: ValueExtractor<T, V> = (x) => x as unknown as V,
-): DuplicateData<T>[] => {
+): Map<V, DuplicateData<T>[]> => {
 
     let currentIndex = 0;
-    const valuesController = new Set<V>();
-    const duplicates: DuplicateData<T>[] = [];
+    const duplicatesDict = new Map<V, DuplicateData<T>[]>();
 
     for (const item of source) {
 
         const valueToCheck = valueExtractor(item);
 
-        !valuesController.has(valueToCheck)
-            ? valuesController.add(valueToCheck)
-            : duplicates.push({
-                duplicateIndex: currentIndex,
-                duplicateValue: item,
-            });
+        const repetitionsList =  duplicatesDict.get(valueToCheck) || [];
+
+        repetitionsList.push({
+            duplicateIndex: currentIndex,
+            duplicateValue: item,
+        });
+
+        duplicatesDict.set(
+            valueToCheck,
+            repetitionsList,
+        );
 
         currentIndex++;
     }
+    
 
-
-    return duplicates;
+    return duplicatesDict;
 
 };
 
