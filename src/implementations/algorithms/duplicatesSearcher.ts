@@ -3,6 +3,13 @@ import {
     DuplicateData,
 } from '@algorithms/duplicatesSearcher/interfaces';
 
+/**
+ * Looks for duplications input iterable may have
+ * @param source duplications source iterable
+ * @param valueExtractor optional function, derives a primitive according which two values are considered as duplicates
+ * @returns **Map**: keys are **valueExtractor** values, values are lists of **DuplicateData**:
+ * **duplicateIndex: number** and **duplicateValue: T**
+ */
 export const duplicatesSearcher =
 <T, V = T>(
     source: Iterable<T>,
@@ -36,6 +43,10 @@ export const duplicatesSearcher =
 
 };
 
+/**
+ * Creates a duplicate search procedure instance with given value extractor
+ * @param valueExtractor function that extracts a value two elements of a list are duplicates according to it
+ */
 export const buildDuplicatesSearcher = <T, V = T>(
     valueExtractor?: ValueExtractor<T, V>,
 ) => {
