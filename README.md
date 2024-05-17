@@ -6,14 +6,13 @@ Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWa
 
 Current version renewals:
 
-- [Graph abstract class](#GraphAbstractClass)
-- [Tree abstract class](#TreeAbstractClass)
+- [MutationsHistory abstract class](#mutationsHistory)
+- [Binary search procedure template](#binarySearch)
+- [Duplicates search procedure template](#duplicatesSearch)
 
 Next scheduled updates:
 
-- History abstract class
-- Binary search procedure template
-- Unique values searcher procedure template
+- Numbers validation methods: various standard regexp, **isNumber**
 - Default pathfinder template based on BFS algorithm
 - Default leveling step function based on DFS algorithm
 
@@ -28,6 +27,9 @@ To get along with this module (e.g. enable IntelliSense), enable in consumer pro
 - [Universal iterable converter (standard data structures, UICSDS)](#uicsds)
 - [Graph abstract class](#GraphAbstractClass)
 - [Tree abstract class](#TreeAbstractClass)
+- [Mutations history template class](#mutationsHistory)
+- [Binary search procedure template](#binarySearch)
+- [Duplicates search procedure template](#duplicatesSearch)
 
 <a id="uic"></a>
 
