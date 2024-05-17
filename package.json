@@ -38,6 +38,18 @@
     "./graphs/interfaces": {
       "import": "./dist/interfaces/graphs/interfaces.js",
       "types": "./dist/interfaces/graphs/interfaces.d.ts"
+    },
+    "./mutationsHistory": {
+      "import": "./dist/implementations/MutationsHistory/MutationsHistory.js",
+      "types": "./dist/implementations/MutationsHistory/MutationsHistory.d.ts"
+    },
+    "./algorithms/binarySearch": {
+      "import": "./dist/implementations/algorithms/binarySearch.js",
+      "types": "./dist/implementations/algorithms/binarySearch.d.ts"
+    },
+    "./algorithms/duplicatesSearcher": {
+      "import": "./dist/implementations/algorithms/duplicatesSearcher.js",
+      "tyoes": "./dist/implementations/algorithms/duplicatesSearcher.d.ts"
     }
   },
   "scripts": {

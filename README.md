@@ -382,3 +382,188 @@ import Tree from '@vyacheslav97/ct/tree';
           config?: GraphConfig<NodeData>,
       )
   ```
+
+<a id="mutationsHistory"></a>
+
+## Mutations history template class
+
+**MutationsHistory** template class import:
+
+```ts
+import MutationsHistory from '@vyacheslav97/ct/mutationsHistory';
+```
+
+**MutationsHistory** implements changes history abstract mechanism. It is described via following interface:
+
+```ts
+interface MutationsHistoryInterface<HistoryUnitType> {
+
+    lastSavedChangeIndex: number,
+
+    commitedMutations: HistoryUnitType[],
+    canceledMutations: HistoryUnitType[],
+
+    getCurrentMutation: () => HistoryUnitType | undefined,
+
+    addMutation: (mutation: HistoryUnitType) => void,
+    cancelLastMutation: () => void,
+    restoreCanceledMutation: () => void,
+    saveCurrentMutation: () => void,
+    backToSavedMutation: () => void,
+
+
+    saveAndClear: () => void,
+    clearHistory: () => void,
+
+}
+```
+
+### MutationshHistory  API 
+
+***Data:***
+
+- **commitedMutations** stack - stack of committed changes
+- **canceledMutations** stack - stack of canceled changes
+- **lastSavedChangeIndex** - index of last saved change
+
+***Methods:***
+
+- **getCurrentMutation** - returns the most recent committed change
+- **addMutation** - adds a fresh mutation to **commitedMutations** stack. Devastates filled **canceledMutations** stack
+- **cancelLastMutation** - removes the most recent mutation from **commitedMutations** stack and places it in **canceledMutations** stack
+- **restoreCanceledMutation** - if there are canceled mutations, then removes fresh mutation from **canceledMutations** stack and moves it to **commitedMutations** stack
+- **saveCurrentMutation** - updates **lastSavedChangeIndex** with commitedMutations.length - 1
+- **backToSavedMutation** - cancels or restores all mutations up to the last saved
+- **saveAndClear** - saves the most recent commited mutation and demolishes the rest (canceled inclusive)
+- **clearHistory** - clears history
+
+
+
+A **MutationsHistory** instance can be created using predefined committed history list via **MutationsHis** class constructor:
+
+```ts
+constructor(sourceIterable?: Iterable<HistoryUnitType>) {
+
+    this.commitedMutations = sourceIterable ? [...sourceIterable]: [];
+    this.canceledMutations = [];
+    this.lastSavedChangeIndex = this.commitedMutations.length - 1;
+}
+```
+
+**MutationsHistory** is able to store whatever you plan it to: from changed objects itself to actions that mutate certain data structure. But a whole template, that rules history rules, remains the same.
+
+<a id="binarySearch"></a>
+
+## Binary search procedure template
+
+**Binary search** template procedure import:
+
+```ts
+import {
+    binarySearch, 
+    buildBinarySearch,
+} from '@vyacheslav97/ct/algorithms/binarySearch';
+```
+
+**NOTE:** it is highly recommended to prefer **buildBinarySearch** over **binarySearch**. 
+
+**binarySearch** implements well-known binary search algorithm for array of arbitrary content. It receives:
+
+- **sourceList** - list of data for binary search (list cotains data of the same arbitrary type)
+
+- **target** - binary search target
+
+- **comparator** - function that compares array elements and has a result described via following interface: 
+
+  ```ts
+  interface ComparatorResult {
+      equal?: boolean,
+      less?: boolean,
+      greater?: boolean,
+  }
+  ```
+
+**binarySearch** returns target index, if target does exist on given array or **undefined** otherwise.
+
+**buildBinarySearch** creates **binarySearch** instance with a given comparator:
+
+```ts
+
+const numbersComparator = (x: number, y: number): ComparatorResult => ({
+    less: x < y,
+    greater: x > y,
+    equal: x === y,
+});
+
+const numericalBinarySearch = buildBinarySearch(numbersComparator);
+
+numericalBinarySearch([], 5); // undefined
+numericalBinarySearch([1, 2, 3, 4, 5], 2); // 1
+
+```
+
+<a id="duplicatesSearch"></a>
+
+## Duplicates search procedure template
+
+**Duplicates search** procedure template import:
+
+```ts
+import {
+    duplicatesSearcher,
+    buildDuplicatesSearcher,
+} from '@vyacheslav97/ct/algorithms/duplicatesSearcher';
+```
+
+**duplicatesSearcher** function looks for duplicates within a given array of data. It accepts following arguments:
+
+- **source** – duplications source iterable
+
+- **valueExtractor** – optional function, derives a primitive according which two values are considered as duplicates
+
+- Returns  **Map**, which keys are **valueExtractor** values, values are lists of **DuplicateData**: 
+
+  ```ts
+  interface DuplicateData<T> {
+      duplicateIndex: number;
+      duplicateValue: T;
+  }
+  ```
+
+  
+
+  **Note:** **duplicatesSearcher** returns empty **Map** only if source iterable is empty, otherwise it has maximum size equal to source iterable values amount. 
+
+
+
+**buildDuplicatesSearcher** builds a **duplicatesSearcher** instance with a given**valueExtractor**:
+
+```ts
+interface SimpleObjectData {
+    value: string,
+}
+
+const valueExtractor = (data: SimpleObjectData) => data.value;
+
+
+const numericalDuplicatesSearcher = buildDuplicatesSearcher<number>();
+numericalDuplicatesSearcher([1, 2, 3, 4, 5]);
+
+export const objectDuplicatesSearcher = buildDuplicatesSearcher(valueExtractor);
+
+objectDuplicatesSearcher([
+    {
+        value: 'a',
+    },
+    {
+        value: 'a',
+    },
+    {
+        value: 'c',
+    },
+]);
+
+
+
+```
+
