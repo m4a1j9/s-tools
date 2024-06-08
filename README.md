@@ -4,20 +4,28 @@ Common tools (hereinafter referred to as **ct**) - a common JavaScript data stru
 
 Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
 
-Current version renewals:
+Current version renewals (0.0.15):
 
-- [**isNumber** data validator](#)
-- [Decimal integers regular expressions](#): signed, unsigned, negative integers of arbitrary length
-- [Decimal floating point numbers expressions](#): signed, unsigned, negative floats of arbitrary length
-- [Decimal numbers of exponential format](#)
+- [**isNumber** data validator](#isNumber)
+- [Decimal integers regular expressions](#integerRegExp): signed, unsigned, negative integers of arbitrary length
+- [Decimal floating point numbers expressions](#floatRegExp): signed, unsigned, negative floats of arbitrary length
+- [Decimal numbers of exponential format](#expRegExp)
 
-Next scheduled updates:
+Next scheduled **major** updates:
 
 - **Table** class template
 - Default pathfinder template based on BFS algorithm
 - Default leveling step function based on DFS algorithm
 
+Next scheduled **minor** updates:
 
+- **clear** method for **Graph** template class
+
+- Input nodes validation within **Graph** and **Tree** constructors
+
+- **isLeaf**  boolean flag for **Tree** nodes, and related logic of its auto handling during adding and removing nodes
+
+  
 
 ## Prerequisites
 
@@ -31,6 +39,10 @@ To get along with this module (e.g. enable IntelliSense), enable in consumer pro
 - [Mutations history template class](#mutationsHistory)
 - [Binary search procedure template](#binarySearch)
 - [Duplicates search procedure template](#duplicatesSearch)
+- [isNumber](#isNumber)
+- [Decimal integer RegExp](#integerRegExp)
+- [Decimal float RegExp](#floatRegExp)
+- [Exponential format number RegExp](#expRegExp)
 
 <a id="uic"></a>
 
@@ -569,4 +581,91 @@ objectDuplicatesSearcher([
 
 
 ```
+
+<a id="isNumber"></a>
+
+## isNumber
+
+**isNumber** validator import:
+
+```ts
+import isNumber from '@vyacheslav97/ct/isNumber';
+```
+
+**isNumber** represents a simple method to check whether its argument actually **number** or not. It based on two consequent test: 
+
+- Ensures, that **typeof** input argument is **number**
+- Examines result of **Number.isNaN** call on input argument
+
+<a id="integerRegExp"></a>
+
+## Decimal integer RegExp
+
+Regular expressions for decimal integers testing import:
+
+```ts
+import {
+    integerNumberRegex,
+    unsignedIntegerNumberRegex,
+    negativeIntegerNumberRegex,
+} from '@vyacheslav97/ct/numbersRegExps';
+```
+
+All expressions are aimed to detangle whether a whole given string is an integer or not.
+
+Particularly:
+
+- **integerNumberRegex** checks, whether an input string has signed or unsigned integer number: string optionally starts with a single **+** or **-**, followed by digits sequence, which starts with any digits except **0**, or single usingned **0**
+- **unsignedIntegerNumberRegex** almost copies **integerNumberRegex**, but start signs are not allowed
+- **negativeIntegerNumberRegex** almost copies **integerNumberRegex**, but start sign must be **-**
+
+
+
+<a id="integerRegExp"></a>
+
+## Decimal float RegExp
+
+Regular expressions for decimal floats testing import:
+
+```ts
+import {
+	floatNumberRegex,
+	unsignedFloatNumberRegex,
+	negativeFloatingPointNumberRegex,
+} from '@vyacheslav97/ct/numbersRegExps';
+```
+
+All expressions are aimed to detangle whether a whole given string is a float number or not.
+
+Particularly:
+
+- **floatNumberRegex** checks, whether an input string has signed or unsigned float number: string optionally starts with a single **+** or **-**, followed by digits sequence, which first digit can't be **0**, or single **0** with no sign. All this stuff is accompanied with optional single dot and that dot has optional digits sequence. So, following numbers are correct: **0**, **0.**, **0.241253**, **-1.24**, **3**, **-5**, **+12** .
+-  **unsignedFloatNumberRegex** resembles **floatNumberRegex**, but denies starting sign, positive or negative
+- **negativeFloatingPointNumberRegex** mimics **floatNumberRegex**, but requires **-** as a starting sign
+
+
+
+<a id="expRegExp"></a>
+
+## Exponential format number RegExp
+
+Regular expression for number of exponential format testing import:
+
+```ts
+import {
+	exponentialNumberFormatRegex,
+} from '@vyacheslav97/ct/numbersRegExps';
+```
+
+This expression is aimed to detangle whether an entire given string is a number of exponential format or not.
+
+**exponentialNumberFormatRegex** unites three checks:
+
+- **e** or **E** separator between **right part** and **left part** of number
+- **right part** must be a **decimal integer number** with optional **-** sign
+- **left part** must be a **decimal float number** with optional sign
+
+
+
+
 
