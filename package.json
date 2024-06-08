@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@vyacheslav97/ct",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "",
   "keywords": [
     "tools",
@@ -12,7 +12,14 @@
     "tree",
     "algorithms",
     "binary search",
-    "duplicates search"
+    "duplicates search",
+    "standard regexp",
+    "isNumber",
+    "number validators",
+    "exponential format",
+    "exponential",
+    "decimal regexp",
+    "decimal"
   ],
   "exports": {
     "./uic": {
