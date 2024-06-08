@@ -621,7 +621,7 @@ Particularly:
 
 
 
-<a id="integerRegExp"></a>
+<a id="floatRegExp"></a>
 
 ## Decimal float RegExp
 
