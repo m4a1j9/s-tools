@@ -27,7 +27,9 @@
        "@algorithms/binarySearch": ["src/implementations/algorithms/binarySearch.ts"],
        "@algorithms/binarySearch/interfaces": ["src/interfaces/algorithms/binarySearch.ts"],
        "@algorithms/duplicatesSearcher": ["src/implementations/algorithms/duplicatesSearcher.ts"],
-       "@algorithms/duplicatesSearcher/interfaces": ["src/interfaces/algorithms/duplicatesSearcher.ts"]
+       "@algorithms/duplicatesSearcher/interfaces": ["src/interfaces/algorithms/duplicatesSearcher.ts"],
+       "@numbers/validators/isNumber": ["./src/implementations/NumberValidators/isNumber.ts"],
+       "@numbers/validators/regexp": ["./src/implementations/NumberValidators/NumberRegExps.ts"]
      },
      "declaration": true,
      "emitDeclarationOnly": false,

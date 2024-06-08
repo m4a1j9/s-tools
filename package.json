@@ -50,6 +50,14 @@
     "./algorithms/duplicatesSearcher": {
       "import": "./dist/implementations/algorithms/duplicatesSearcher.js",
       "tyoes": "./dist/implementations/algorithms/duplicatesSearcher.d.ts"
+    },
+    "./isNumber": {
+      "import": "./dist/implementations/NumberValidators/isNumber.js",
+      "types": "./dist/implementations/NumberValidators/isNumber.d.ts"
+    },
+    "./numbersRegExps": {
+      "import": "./dist/implementations/NumberValidators/NumberRegExps.js",
+      "types": "./dist/implementations/NumberValidators/NumberRegExps.d.ts"
     }
   },
   "scripts": {

@@ -6,13 +6,14 @@ Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWa
 
 Current version renewals:
 
-- [MutationsHistory abstract class](#mutationsHistory)
-- [Binary search procedure template](#binarySearch)
-- [Duplicates search procedure template](#duplicatesSearch)
+- [**isNumber** data validator](#)
+- [Decimal integers regular expressions](#): signed, unsigned, negative integers of arbitrary length
+- [Decimal floating point numbers expressions](#): signed, unsigned, negative floats of arbitrary length
+- [Decimal numbers of exponential format](#)
 
 Next scheduled updates:
 
-- Numbers validation methods: various standard regexp, **isNumber**
+- **Table** class template
 - Default pathfinder template based on BFS algorithm
 - Default leveling step function based on DFS algorithm
 
