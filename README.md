@@ -1,17 +1,16 @@
 # <u>Common tools (ct, also @vyacheslav97/ct)</u>
 
-***ATTENTION!!!*** Huge work in progress, do not download version with this mark
+
 
 Common tools (hereinafter referred to as **ct**) - a common JavaScript data structures and associated processing procedures package ([package repository](https://github.com/VyacheslavMishin/ct/tree/master)). 
 
 Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
 
-Current version renewals (0.0.15):
+Current version renewals (1.0.0) (see **Prerequesites** a bit below):
 
-- [**isNumber** data validator](#isNumber)
-- [Decimal integers regular expressions](#integerRegExp): signed, unsigned, negative integers of arbitrary length
-- [Decimal floating point numbers expressions](#floatRegExp): signed, unsigned, negative floats of arbitrary length
-- [Decimal numbers of exponential format](#expRegExp)
+- All interfaces and implementations can be imported directly from package (all imports are named)
+- Code and autocomplete works properly with import
+- **isNumber** now can be used as a type guard properly
 
 Next scheduled **major** updates:
 
@@ -31,7 +30,7 @@ Next scheduled **minor** updates:
 
 ## Prerequisites
 
-To get along with this module (e.g. enable IntelliSense), enable in consumer project **tsconfig.json** **resolvePackageJsonImports**, **resolvePackageJsonExports** options, also check **module** and **moduleResolution** are **Node16**.
+tsconfig.json **moduleResolution** has to be set to **node**
 
 # Module guts
 - [Universal iterable converter (UIC)](#uic)
@@ -66,7 +65,7 @@ UIC module provides a user with two functions: **transformToIterable** and its w
 UIC members  can be imported as follows:
 
 ```ts
-import {createIterableTransformer, transformToIterable} from '@vyacheslav97/ct/uic';
+import {createIterableTransformer, transformToIterable} from '@vyacheslav97/ct';
 ```
 
 **createIterableTransformer** is highly recommended for usage instead of **transformToIterable** to avoid redundant target iterable constructor referencing.
@@ -110,7 +109,7 @@ UICSDS module consists of **createIterableTransformer** applications to built-in
 UICSDS module members can be imported as follows:
 
 ```ts
-import {createArrayToMap, createMapToSet} from '@vyacheslav97/ct/uicsds';
+import {createArrayToMap, createMapToSet} from '@vyacheslav97/ct';
 ```
 
 ### Usage notes
@@ -129,7 +128,7 @@ import {
   SingleToPair,
   SingleToSingle,
   PairToSingle
-} from "@vyacheslav97/uic/interfaces";
+} from "@vyacheslav97/ct";
 
 // Map item to a character transformer 
 const keyValuePairConcatenatedTransformer: PairToSingle<number, number, string>
@@ -197,8 +196,7 @@ Some methods are not covered above:
 Import Graph class: 
 
 ```ts
-import Graph from '@vyacheslav97/ct/graph';
-// All necessary interfaces can be imported from '@vyacheslav97/ct/graphs/interfaces'
+import {Graph} from '@vyacheslav97/ct';
 ```
 
 
@@ -353,7 +351,7 @@ graph.setPathFinderProcedure(pathFinder);
 Import Tree class: 
 
 ```ts
-import Tree from '@vyacheslav97/ct/tree';
+import {Tree} from '@vyacheslav97/ct';
 ```
 
 **Tree** abstract class extends **Graph** abstract class. This extension brings in following mutations:
@@ -407,7 +405,7 @@ import Tree from '@vyacheslav97/ct/tree';
 **MutationsHistory** template class import:
 
 ```ts
-import MutationsHistory from '@vyacheslav97/ct/mutationsHistory';
+import {MutationsHistory} from '@vyacheslav97/ct';
 ```
 
 **MutationsHistory** implements changes history abstract mechanism. It is described via following interface:
@@ -479,7 +477,7 @@ constructor(sourceIterable?: Iterable<HistoryUnitType>) {
 import {
     binarySearch, 
     buildBinarySearch,
-} from '@vyacheslav97/ct/algorithms/binarySearch';
+} from '@vyacheslav97/ct';
 ```
 
 **NOTE:** it is highly recommended to prefer **buildBinarySearch** over **binarySearch**. 
@@ -529,7 +527,7 @@ numericalBinarySearch([1, 2, 3, 4, 5], 2); // 1
 import {
     duplicatesSearcher,
     buildDuplicatesSearcher,
-} from '@vyacheslav97/ct/algorithms/duplicatesSearcher';
+} from '@vyacheslav97/ct';
 ```
 
 **duplicatesSearcher** function looks for duplicates within a given array of data. It accepts following arguments:
@@ -553,7 +551,7 @@ import {
 
 
 
-**buildDuplicatesSearcher** builds a **duplicatesSearcher** instance with a given**valueExtractor**:
+**buildDuplicatesSearcher** builds a **duplicatesSearcher** instance with a given **valueExtractor**:
 
 ```ts
 interface SimpleObjectData {
@@ -591,7 +589,7 @@ objectDuplicatesSearcher([
 **isNumber** validator import:
 
 ```ts
-import isNumber from '@vyacheslav97/ct/isNumber';
+import isNumber from '@vyacheslav97/ct';
 ```
 
 **isNumber** represents a simple method to check whether its argument actually **number** or not. It based on two consequent test: 
@@ -610,7 +608,7 @@ import {
     integerNumberRegex,
     unsignedIntegerNumberRegex,
     negativeIntegerNumberRegex,
-} from '@vyacheslav97/ct/numbersRegExps';
+} from '@vyacheslav97/ct';
 ```
 
 All expressions are aimed to detangle whether a whole given string is an integer or not.
@@ -634,7 +632,7 @@ import {
 	floatNumberRegex,
 	unsignedFloatNumberRegex,
 	negativeFloatingPointNumberRegex,
-} from '@vyacheslav97/ct/numbersRegExps';
+} from '@vyacheslav97/ct';
 ```
 
 All expressions are aimed to detangle whether a whole given string is a float number or not.
@@ -656,7 +654,7 @@ Regular expression for number of exponential format testing import:
 ```ts
 import {
 	exponentialNumberFormatRegex,
-} from '@vyacheslav97/ct/numbersRegExps';
+} from '@vyacheslav97/ct';
 ```
 
 This expression is aimed to detangle whether an entire given string is a number of exponential format or not.
