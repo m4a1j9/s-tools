@@ -1,2 +1,2 @@
-export * from "./Graph"
-export * from "./Tree"
+export * from "./graph"
+export * from "./tree"

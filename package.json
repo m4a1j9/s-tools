@@ -21,52 +21,7 @@
     "decimal regexp",
     "decimal"
   ],
-  "exports": {
-    "./uic": {
-      "import": "./dist/implementations/uic/uic.js",
-      "types": "./dist/implementations/uic/uic.d.ts"
-    },
-    "./uicsds": {
-      "import": "./dist/implementations/uic/uicsds.js",
-      "types": "./dist/implementations/uic/uicsds.d.ts"
-    },
-    "./uic/interfaces": {
-      "import": "./dist/interfaces/uic/interfaces.js",
-      "types": "./dist/interfaces/uic/interfaces.d.ts"
-    },
-    "./graph": {
-      "import": "./dist/implementations/graphs/graph.js",
-      "types": "./dist/implementations/graphs/graph.d.ts"
-    },
-    "./tree": {
-      "import": "./dist/implementations/graphs/tree.js",
-      "types": "./dist/implementations/graphs/tree.d.ts"
-    },
-    "./graphs/interfaces": {
-      "import": "./dist/interfaces/graphs/interfaces.js",
-      "types": "./dist/interfaces/graphs/interfaces.d.ts"
-    },
-    "./mutationsHistory": {
-      "import": "./dist/implementations/MutationsHistory/MutationsHistory.js",
-      "types": "./dist/implementations/MutationsHistory/MutationsHistory.d.ts"
-    },
-    "./algorithms/binarySearch": {
-      "import": "./dist/implementations/algorithms/binarySearch.js",
-      "types": "./dist/implementations/algorithms/binarySearch.d.ts"
-    },
-    "./algorithms/duplicatesSearcher": {
-      "import": "./dist/implementations/algorithms/duplicatesSearcher.js",
-      "tyoes": "./dist/implementations/algorithms/duplicatesSearcher.d.ts"
-    },
-    "./isNumber": {
-      "import": "./dist/implementations/NumberValidators/isNumber.js",
-      "types": "./dist/implementations/NumberValidators/isNumber.d.ts"
-    },
-    "./numbersRegExps": {
-      "import": "./dist/implementations/NumberValidators/NumberRegExps.js",
-      "types": "./dist/implementations/NumberValidators/NumberRegExps.d.ts"
-    }
-  },
+  "main": "./dist/index.js",
   "scripts": {
     "build": "tsc && tsc-alias",
     "test": "jest --verbose ./testsArea/tests",
@@ -85,6 +40,6 @@
     "typescript": "^5.4.2"
   },
   "files": [
-    "dist/"
+    "dist/*"
   ]
 }
