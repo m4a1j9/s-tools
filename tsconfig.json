@@ -17,7 +17,7 @@
        "@implementations": ["src/implementations/index.ts"],
        "@interfaces": ["src/interfaces/index.ts"],
        "@utils/graphErrorsEmitters": ["src/utilsArea/errorEmitters/graphErrorEmitters.ts"],
-       "@utils/treeErrorsEmitters": ["src/utilsArea/errorEmitters/treeErrorEmitters.ts"],
+       "@utils/treeErrorsEmitters": ["src/utilsArea/errorEmitters/treeErrorEmitters.ts"]
      },
      "declaration": true,
      "emitDeclarationOnly": false,
