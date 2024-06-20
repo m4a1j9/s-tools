@@ -1,7 +1,7 @@
 import {
     GraphNodeInterface,
     TreeNodeExtraData,
-} from '@graphs/interfaces';
+} from '@interfaces';
 
 
 type TreeNodeInterface = GraphNodeInterface<TreeNodeExtraData>;

@@ -2,9 +2,9 @@ import {
     SingleToSingle,
     SingleToPair,
     PairToSingle,
-} from '@uic/interfaces';
+} from '@interfaces';
 
-import * as ConvertersCreator from '@uicsds';
+import * as ConvertersCreator from '@implementations';
 
 /* Conversion laws list */
 

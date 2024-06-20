@@ -1,5 +1,5 @@
-import {ComparatorResult} from '@algorithms/binarySearch/interfaces';
-import {buildBinarySearch} from '@algorithms/binarySearch';
+import {ComparatorResult} from '@interfaces';
+import {buildBinarySearch} from '@implementations';
 
 
 const numbersComparator = (x: number, y: number): ComparatorResult => ({

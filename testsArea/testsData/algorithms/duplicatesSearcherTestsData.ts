@@ -1,4 +1,4 @@
-import {buildDuplicatesSearcher} from '@algorithms/duplicatesSearcher';
+import {buildDuplicatesSearcher} from '@implementations';
 
 interface SimpleObjectData {
     value: string,

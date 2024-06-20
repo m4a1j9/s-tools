@@ -3,7 +3,7 @@ import {
     GraphNodeInterface,
     LevelingStepFunction,
     PathBuilder,
-} from '@graphs/interfaces';
+} from '@interfaces';
 
 export interface SomeUserData {
     someData: number,
