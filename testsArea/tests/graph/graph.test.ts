@@ -1,4 +1,4 @@
-import Graph from '@graphs/graph';
+import {Graph} from '@implementations';
 import {graphErrorMessages} from '@utils/graphErrorsEmitters';
 
 import {

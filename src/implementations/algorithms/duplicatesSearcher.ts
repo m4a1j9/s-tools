@@ -1,7 +1,7 @@
 import {
     ValueExtractor,
     DuplicateData,
-} from '@algorithms/duplicatesSearcher/interfaces';
+} from '@interfaces';
 
 /**
  * Looks for duplications input iterable may have

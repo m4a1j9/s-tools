@@ -4,7 +4,7 @@ import {
     GraphNodeInterface,
     LevelingStepFunction,
     PathBuilder,
-} from '@graphs/interfaces';
+} from '@interfaces';
 
 import {graphErrorsEmitters} from '@utils/graphErrorsEmitters';
 
@@ -30,7 +30,7 @@ import {graphErrorsEmitters} from '@utils/graphErrorsEmitters';
  *
  * All of them covered in details below
  */
-class Graph<NodeData> implements GraphInterface<NodeData> {
+export class Graph<NodeData> implements GraphInterface<NodeData> {
     nodes: Map<string,GraphNodeInterface<NodeData>>;
 
     /**
@@ -279,5 +279,3 @@ class Graph<NodeData> implements GraphInterface<NodeData> {
     }
 
 }
-
-export default Graph;

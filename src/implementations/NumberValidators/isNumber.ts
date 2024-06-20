@@ -1,5 +1,3 @@
-function isNumber(value: unknown): boolean {
+export function isNumber(value: unknown): value is number {
     return typeof value === 'number' && !Number.isNaN(value);
 }
-
-export default isNumber;

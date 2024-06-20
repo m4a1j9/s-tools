@@ -1,6 +1,6 @@
 import {
     comparator,
-} from '@algorithms/binarySearch/interfaces';
+} from '@interfaces';
 
 
 /**

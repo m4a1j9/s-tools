@@ -1,5 +1,5 @@
-import Graph from '@graphs/graph';
-import {GraphConfig, GraphNodeInterface, TreeNodeExtraData} from '@graphs/interfaces';
+import {Graph} from '@implementations';
+import {GraphConfig, GraphNodeInterface, TreeNodeExtraData} from '@interfaces';
 import {treeErrorsEmitters} from '@utils/treeErrorsEmitters';
 /**
  * **Tree** class represents tree abstraction extending **Graph** class.
@@ -9,7 +9,7 @@ import {treeErrorsEmitters} from '@utils/treeErrorsEmitters';
  * - **addNode** and **removeNode** methods of original class are overloaded to deal with tree peculiarities well
  * - Each node has to carry nodeData that extends **TreeNodeExtraData** interface
  */
-class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
+export class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
     rootNodeId: string;
     constructor(
         rootNodeId: string = '',
@@ -121,5 +121,3 @@ class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
     }
 
 }
-
-export default Tree;

@@ -1,4 +1,4 @@
-import {MutationsHistoryInterface} from '@mutationsHistory/interfaces';
+import {MutationsHistoryInterface} from '@interfaces';
 
 /**
  * **MutationsHistory** class implements changes history abstraction
@@ -25,7 +25,7 @@ import {MutationsHistoryInterface} from '@mutationsHistory/interfaces';
  * - **saveAndClear** - saves the most recent commited mutation and demolishes the rest (canceled inclusive)
  * - **clearHistory** - clears history
  */
-class MutationsHistory<HistoryUnitType> implements MutationsHistoryInterface<HistoryUnitType>{
+export class MutationsHistory<HistoryUnitType> implements MutationsHistoryInterface<HistoryUnitType>{
     lastSavedChangeIndex: number;
     commitedMutations: HistoryUnitType[];
     canceledMutations: HistoryUnitType[];
@@ -105,5 +105,3 @@ class MutationsHistory<HistoryUnitType> implements MutationsHistoryInterface<His
         this.lastSavedChangeIndex = this.commitedMutations.length - 1;
     }
 }
-
-export default MutationsHistory;

@@ -1,12 +1,12 @@
 // UIC Standard Data Structures (UICSDS)
 
-import {createIterableTransformer} from "@uic";
+import {createIterableTransformer} from "@implementations";
 
 import {
     SingleToSingle,
     SingleToPair,
     PairToSingle,
-} from '@uic/interfaces';
+} from '@interfaces';
 
 
 // "arrayTo" converters

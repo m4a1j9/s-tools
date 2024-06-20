@@ -3,7 +3,7 @@
 import {
     IterableConstructor,
     ValueTransformer
-} from '@uic/interfaces';
+} from '@interfaces';
 
 
 /**

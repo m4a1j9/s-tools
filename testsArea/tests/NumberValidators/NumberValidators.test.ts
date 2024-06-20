@@ -1,5 +1,5 @@
-import * as NumberRegExp from '@numbers/validators/regexp';
-import isNumber from "@numbers/validators/isNumber";
+import * as NumberRegExp from '@implementations';
+import {isNumber} from "@implementations";
 import * as NumberValidatorsTestData from '../../testsData/NumberValidators/NumberValidatorsTestsData';
 
 

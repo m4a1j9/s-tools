@@ -1,4 +1,4 @@
-import MutationsHistory from '@mutationsHistory';
+import {MutationsHistory} from '@implementations';
 
 import {
     NumericalMutation,

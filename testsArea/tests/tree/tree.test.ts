@@ -1,4 +1,4 @@
-import Tree from '@graphs/tree';
+import {Tree} from '@implementations';
 import {treeErrorMessages} from '@utils/treeErrorsEmitters';
 import {
     ROOT_NODE_ID,
