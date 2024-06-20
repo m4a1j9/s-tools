@@ -1,4 +1,4 @@
-import {Graph} from '@implementations';
+import {Graph} from './graph';
 import {GraphConfig, GraphNodeInterface, TreeNodeExtraData} from '@interfaces';
 import {treeErrorsEmitters} from '@utils/treeErrorsEmitters';
 /**
