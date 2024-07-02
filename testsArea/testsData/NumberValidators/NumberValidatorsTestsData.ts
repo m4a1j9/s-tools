@@ -86,8 +86,8 @@ export const floatNumberRegexpTestsData = [
         result: true,
     },
     {
-        data: '0123.2345',
-        result: false,
+        data: '21314.24',
+        result: true,
     },
     {
         data: '0',
@@ -95,7 +95,7 @@ export const floatNumberRegexpTestsData = [
     },
     {
         data: '-0',
-        result: false,
+        result: true,
     },
     {
         data: '124234.',

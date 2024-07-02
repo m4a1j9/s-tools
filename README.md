@@ -6,11 +6,9 @@ Common tools (hereinafter referred to as **ct**) - a common JavaScript data stru
 
 Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
 
-Current version renewals (1.0.0) (see **Prerequesites** a bit below):
+Current version renewals (1.0.1) (see **Prerequesites** a bit below):
 
-- All interfaces and implementations can be imported directly from package (all imports are named)
-- Code and autocomplete works properly with import
-- **isNumber** now can be used as a type guard properly
+- Number regular expressions fix: g flag was removed to handle regexp test method consistently (avoiding hidden index impact)
 
 Next scheduled **major** updates:
 
