@@ -39,4 +39,5 @@ export interface GraphConfig<NodeData = void> {
 
 export interface TreeNodeExtraData {
     parentNodeId?: string,
+    isLeaf?: boolean,
 }

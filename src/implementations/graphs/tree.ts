@@ -38,14 +38,25 @@ export class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
             outgoingBoundaries,
         } = nodeToAdd;
 
+
         if(incomingBoundaries.size <= 1 && outgoingBoundaries.size <= 1) {
 
 
             if(this.nodes.size === 0) {
                 if([incomingBoundaries, outgoingBoundaries].every(x => x.size === 0)) {
-                    if(nodeToAdd.nodeData?.parentNodeId) {
+
+                    const parentNodeId = nodeToAdd.nodeData?.parentNodeId;
+
+                    const isLeaf = nodeToAdd?.nodeData?.isLeaf;
+
+                    if(parentNodeId) {
                         treeErrorsEmitters.noParentNodeForRoot();
                     }
+
+                    if(isLeaf) {
+                        treeErrorsEmitters.rootCantBeALeaf(); // ATTENTION: 1.0.2 version update
+                    }
+
                     this.rootNodeId = nodeToAdd.nodeId;
                     super.addNode(nodeToAdd);
                     return;
@@ -54,21 +65,31 @@ export class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
 
             if(incomingBoundaries.size === 1 && outgoingBoundaries.size === 1) {
                 if([...incomingBoundaries].every(([key, value]) => outgoingBoundaries.get(key) === value)) {
-                    const parentNode = nodeToAdd.nodeData?.parentNodeId || '';
-                    if(!incomingBoundaries.get(parentNode)) {
+                    const parentNodeId = nodeToAdd.nodeData?.parentNodeId || '';
+
+                    if(!incomingBoundaries.get(parentNodeId)) {
                         treeErrorsEmitters.wrongParentNodeId(nodeToAdd.nodeId);
                     }
+
                     super.addNode(nodeToAdd);
+
+                    delete this.getNode(parentNodeId)?.nodeData?.isLeaf; // 1.0.2 update, needs to be tested
+                    nodeToAdd.nodeData!.isLeaf = true;  // 1.0.2 update, needs to be tested
+
                     return;
                 }
             }
 
             if(incomingBoundaries.size || outgoingBoundaries.size) {
-                const parentNode = nodeToAdd.nodeData?.parentNodeId || '';
-                if(!incomingBoundaries.get(parentNode) || !outgoingBoundaries.get(parentNode)) {
+                const parentNodeId = nodeToAdd.nodeData?.parentNodeId || '';
+                if(!incomingBoundaries.get(parentNodeId) || !outgoingBoundaries.get(parentNodeId)) {
                     treeErrorsEmitters.wrongParentNodeId(nodeToAdd.nodeId);
                 }
                 super.addNode(nodeToAdd);
+
+                delete this.getNode(parentNodeId)?.nodeData?.isLeaf; // 1.0.2 update, needs to be tested
+                nodeToAdd.nodeData!.isLeaf = true;  // 1.0.2 update, needs to be tested
+
                 return;
             }
 
@@ -82,9 +103,8 @@ export class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
      * Removes a node from a tree instance (and the node whole subtree by default)
      * Doesn't remove a node if it doesn't exist on the tree instance
      * @param nodeId id of node to remove
-     * @param deleteSubTree if true (by default) node and its subtree are removed
      */
-    removeNode(nodeId: string, deleteSubTree = true) {
+    removeNode(nodeId: string) {
         const nodeToRemove = super.removeNode(nodeId);
 
         if(!nodeToRemove) {
@@ -92,32 +112,58 @@ export class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
         }
 
 
-        if(deleteSubTree) {
+        const parentId = nodeToRemove.nodeData!.parentNodeId!;
 
-            const parentId = nodeToRemove.nodeData!.parentNodeId;
-
-            const subtreeNodesIds: string[] = [
-                ...nodeToRemove.incomingBoundaries.values(),
-                ...nodeToRemove.outgoingBoundaries.values(),
-            ].filter(nodeId => nodeId !== parentId);
-
-            // In future updates will be optimized
-            while(subtreeNodesIds.length) {
-                const anotherNodeToDeleteId = subtreeNodesIds.shift()!;
-                const anotherNodeToDelete = super.removeNode(anotherNodeToDeleteId);
-
-                if(anotherNodeToDelete) {
-
-                    subtreeNodesIds.push(
-                        ...anotherNodeToDelete.incomingBoundaries.values(),
-                        ...anotherNodeToDelete.outgoingBoundaries.values(),
-                    );
-                }
+        const parentNode = this.getNode(parentId);
+        const grandParentNodeId = parentNode!.nodeData!.parentNodeId!;
+        /*
+        * isLeaf node property auto handle during node deletion
+        * parent node has to be considered as a tree leaf
+        *
+        * ATTENTION: 1.0.2 version update, needs to be tested
+        * */
+        if(parentNode) {
+            if(
+              (parentNode.outgoingBoundaries.has(grandParentNodeId) && parentNode.outgoingBoundaries.size === 1)
+              ||
+              (parentNode.incomingBoundaries.has(grandParentNodeId) && parentNode.incomingBoundaries.size === 1)
+            ) {
+                parentNode.nodeData!.isLeaf = true;
             }
-
         }
 
+        const subtreeNodesIds: string[] = [
+            ...nodeToRemove.incomingBoundaries.values(),
+            ...nodeToRemove.outgoingBoundaries.values(),
+        ].filter(nodeId => nodeId !== parentId);
+
+        // In future updates will be optimized
+        // Need custom queue based on a graph child class
+        while(subtreeNodesIds.length) {
+            const anotherNodeToDeleteId = subtreeNodesIds.shift()!;
+            const anotherNodeToDelete = super.removeNode(anotherNodeToDeleteId);
+
+            if(anotherNodeToDelete) {
+
+                subtreeNodesIds.push(
+                    ...anotherNodeToDelete.incomingBoundaries.values(),
+                    ...anotherNodeToDelete.outgoingBoundaries.values(),
+                );
+            }
+        }
+
+
         return nodeToRemove;
+    }
+
+    /**
+     * Removes all nodes from a tree instance
+     * and erases root node id
+     * ATTENTION: 1.0.2 version update, needs to be tested
+     */
+    clear() {
+        super.clear();
+        this.rootNodeId = '';
     }
 
 }

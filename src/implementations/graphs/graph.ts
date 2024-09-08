@@ -278,4 +278,13 @@ export class Graph<NodeData> implements GraphInterface<NodeData> {
         };
     }
 
+
+    /**
+     * Removes all nodes from a graph instance
+     * ATTENTION: 1.0.2 version update, needs to be tested
+     */
+    clear() {
+        this.nodes.clear();
+    }
+
 }

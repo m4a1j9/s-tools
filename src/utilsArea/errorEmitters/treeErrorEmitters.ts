@@ -3,7 +3,7 @@ export const treeErrorMessages = {
         `Node with id ${nodeId} must have 1 or 0 incoming boundaries, 1 or 0 outgoing boundaries. If both are present, they have to point to the same existing node`,
     wrongParentNodeIdMessage: (nodeId: string) => `Node with id ${nodeId} has wrong parentNodeId`,
     noParentIdForRootMessage: () => `Root can't have parentNodeId`,
-
+    noIsLeafForRoot: () => `Root node can't be a leaf`,
 };
 
 export const treeErrorsEmitters = {
@@ -15,5 +15,8 @@ export const treeErrorsEmitters = {
     },
     noParentNodeForRoot() {
         throw Error(treeErrorMessages.noParentIdForRootMessage());
+    },
+    rootCantBeALeaf() {
+        throw Error(treeErrorMessages.noIsLeafForRoot());
     }
 };
