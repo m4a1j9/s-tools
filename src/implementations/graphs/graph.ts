@@ -56,10 +56,19 @@ export class Graph<NodeData> implements GraphInterface<NodeData> {
      * @param config contains a function for flatten procedure and a pathfinder
      */
     constructor(
-        sourceIterable?: Iterable<[string, GraphNodeInterface<NodeData>]>,
+        sourceIterable?: Iterable<GraphNodeInterface<NodeData>>,
         config?: GraphConfig<NodeData>,
     ) {
-        this.nodes = new Map<string, GraphNodeInterface<NodeData>>(sourceIterable);
+        this.nodes = new Map<string, GraphNodeInterface<NodeData>>();
+        // ATTENTION: 1.0.2 version update
+        // data structures put into constructor has to be fixed
+        // addNode method handles all input nodes checks so the loop right below this
+        // comment verifies all input nodes
+        if(sourceIterable) {
+            for (const newNode of sourceIterable)
+                this.addNode(newNode);
+        }
+
         this.flatten  = this.buildFlattenProcedure(config?.levelingStepFunction);
         this.buildPath = this.buildPathFinder(config?.pathFinder) || (() => undefined);
     }

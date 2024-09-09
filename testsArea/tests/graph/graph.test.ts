@@ -1,9 +1,10 @@
 import {Graph} from '@implementations';
-import {graphErrorMessages} from '@utils/graphErrorsEmitters';
+import {graphErrorMessages, graphErrorsEmitters} from '@utils/graphErrorsEmitters';
 
 import {
     nodesWithNoData,
     nodesWithData,
+    nodesWithWrongRootData,
     levelingStepFunction,
     pathFinder,
     cloneDeepNodesList,
@@ -12,6 +13,20 @@ import {
 
 
 describe('Graph Tests', () => {
+
+    describe('Graph constructor tests', () => {
+        it('should create a graph with correct nodes set', () => {
+           const graph = new Graph<unknown>(nodesWithNoData);
+           nodesWithNoData.forEach((node) => {
+               expect(graph.getNode(node.nodeId)).toEqual(node);
+           });
+        });
+        it('should throw an error attempting to create a graph with wrong nodes', () => {
+            const singleNodeId = nodesWithWrongRootData[0].nodeId;
+            expect(new Graph(nodesWithWrongRootData)).toThrow(graphErrorsEmitters.nodeDoesntExist(singleNodeId));
+        });
+    });
+
     describe('addNode method tests', () => {
         const linkedListWithNoData = new Graph();
         cloneDeepNodesList(nodesWithNoData).forEach(node => {
@@ -161,6 +176,13 @@ describe('Graph Tests', () => {
 
     });
 
+    describe('clear method clears graph instance', () => {
+        it('should clear graph instance', () => {
+            const graph = new Graph(nodesWithNoData);
+            graph.clear();
+            expect(graph.nodes.size).toBe(0);
+        });
+    });
 
 
 });

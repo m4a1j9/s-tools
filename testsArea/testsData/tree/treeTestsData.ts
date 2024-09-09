@@ -135,3 +135,14 @@ export const generateListOfTreeNodes= (): TreeNodeInterface[] => ([
         },
     },
 ]);
+
+export const wrongTreeRootNodes: TreeNodeInterface[] = [
+    {
+        nodeId: 'nasty root node pretending a leaf',
+        incomingBoundaries: new Map<string, string>(),
+        outgoingBoundaries: new Map<string, string>(),
+        nodeData: {
+            isLeaf: true,
+        },
+    }
+];

@@ -7,9 +7,44 @@ import {
     nastyRootNode,
     nastyChildNode,
     naughtyChildNode,
+    wrongTreeRootNodes,
 } from '../../testsData/tree/treeTestsData';
 
 describe('Tree Tests', () => {
+
+    describe('Tree constructor tests', () => {
+        it('should create correct binary tree', () => {
+            const referenceNodesList = generateListOfTreeNodes();
+            const binaryTree = new Tree(generateListOfTreeNodes());
+            referenceNodesList.forEach((node) => {
+                expect(binaryTree.getNode(node.nodeId)).toEqual(node);
+            });
+        });
+
+        it('should properly handle isLeaf flag', () => {
+            const binaryTree = new Tree(generateListOfTreeNodes());
+
+            for (const node of binaryTree.nodes.values()) {
+
+                const {
+                    incomingBoundaries,
+                    outgoingBoundaries,
+                } = node;
+
+                const nodeIsLeafCondition =
+                  (incomingBoundaries.has(node?.nodeData?.parentNodeId || '') && incomingBoundaries.size === 1)
+                  ||
+                  (outgoingBoundaries.has(node?.nodeData?.parentNodeId || '') && outgoingBoundaries.size === 1);
+
+                expect(!nodeIsLeafCondition).toEqual(!node?.nodeData?.isLeaf);
+            }
+        });
+
+        it('should throw an error if root node has isLeaf === true', () => {
+           expect(() => new Tree(wrongTreeRootNodes)).toThrow(treeErrorMessages.noIsLeafForRoot());
+        });
+    });
+
    describe('addNode method tests', () => {
       const tree = new Tree();
       const nodesToAdd = generateListOfTreeNodes();
@@ -140,7 +175,7 @@ describe('Tree Tests', () => {
                childNodeIdGenerator(2, 2),
            ];
 
-           tree.removeNode(nodeIdToRemove, false);
+           tree.removeNode(nodeIdToRemove);
 
            expect(tree.nodes.size).toBe(expectedTreeNodesAmountAfterRemove);
 
@@ -149,5 +184,14 @@ describe('Tree Tests', () => {
            });
 
        });
+   });
+
+   describe('clear methods tests', () => {
+      it('should clear nodes and root node id', () => {
+         const tree = new Tree(generateListOfTreeNodes());
+         tree.clear();
+         expect(tree.nodes.size).toBe(0);
+         expect(tree.rootNodeId).toBe('');
+      });
    });
 });

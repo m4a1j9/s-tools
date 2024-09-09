@@ -12,12 +12,19 @@ import {treeErrorsEmitters} from '@utils/treeErrorsEmitters';
 export class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
     rootNodeId: string;
     constructor(
-        rootNodeId: string = '',
-        sourceIterable?: Iterable<[string, GraphNodeInterface<NodeData>]>,
+        sourceIterable?: Iterable<GraphNodeInterface<NodeData>>,
         config?: GraphConfig<NodeData>,
     ) {
-        super(sourceIterable, config);
-        this.rootNodeId = rootNodeId;
+        super(undefined, config);
+
+        // ATTENTION: 1.0.2 version update - input nodes validation within a constructor
+        this.rootNodeId = '';
+
+        if (sourceIterable) {
+            for (const newNode of sourceIterable) {
+                this.addNode(newNode);
+            }
+        }
     }
 
 
@@ -115,7 +122,7 @@ export class Tree<NodeData  extends TreeNodeExtraData> extends Graph<NodeData> {
         const parentId = nodeToRemove.nodeData!.parentNodeId!;
 
         const parentNode = this.getNode(parentId);
-        const grandParentNodeId = parentNode!.nodeData!.parentNodeId!;
+        const grandParentNodeId = parentNode?.nodeData?.parentNodeId || '';
         /*
         * isLeaf node property auto handle during node deletion
         * parent node has to be considered as a tree leaf

@@ -54,6 +54,14 @@ export const nodesWithData: GraphNodeInterface<SomeUserData>[] = [
     }
 ];
 
+export const nodesWithWrongRootData: GraphNodeInterface<unknown>[] = [
+    {
+        nodeId: 'first incorrect node',
+        incomingBoundaries: new Map<string, string>([['some strange node', 'some strange node']]),
+        outgoingBoundaries: new Map<string, string>(),
+    }
+];
+
 export const levelingStepFunction: LevelingStepFunction<unknown> = (
     currentNode: GraphNodeInterface<unknown>,
     graph: GraphInterface<unknown>,
