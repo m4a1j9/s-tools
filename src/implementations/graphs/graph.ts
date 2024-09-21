@@ -60,10 +60,7 @@ export class Graph<NodeData> implements GraphInterface<NodeData> {
         config?: GraphConfig<NodeData>,
     ) {
         this.nodes = new Map<string, GraphNodeInterface<NodeData>>();
-        // ATTENTION: 1.0.2 version update
-        // data structures put into constructor has to be fixed
-        // addNode method handles all input nodes checks so the loop right below this
-        // comment verifies all input nodes
+
         if(sourceIterable) {
             for (const newNode of sourceIterable)
                 this.addNode(newNode);
@@ -288,10 +285,6 @@ export class Graph<NodeData> implements GraphInterface<NodeData> {
     }
 
 
-    /**
-     * Removes all nodes from a graph instance
-     * ATTENTION: 1.0.2 version update, needs to be tested
-     */
     clear() {
         this.nodes.clear();
     }

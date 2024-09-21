@@ -16,14 +16,15 @@ describe('Graph Tests', () => {
 
     describe('Graph constructor tests', () => {
         it('should create a graph with correct nodes set', () => {
-           const graph = new Graph<unknown>(nodesWithNoData);
-           nodesWithNoData.forEach((node) => {
+           const deepClonedNodesList =  cloneDeepNodesList(nodesWithNoData);
+           const graph = new Graph<unknown>(deepClonedNodesList);
+            deepClonedNodesList.forEach((node) => {
                expect(graph.getNode(node.nodeId)).toEqual(node);
            });
         });
         it('should throw an error attempting to create a graph with wrong nodes', () => {
-            const singleNodeId = nodesWithWrongRootData[0].nodeId;
-            expect(new Graph(nodesWithWrongRootData)).toThrow(graphErrorsEmitters.nodeDoesntExist(singleNodeId));
+            const singleNodeId = nodesWithWrongRootData[0].incomingBoundaries.get('some strange node')!;
+            expect(() => new Graph(nodesWithWrongRootData)).toThrow(graphErrorMessages.nodeDoesntExistMessage(singleNodeId));
         });
     });
 
@@ -178,7 +179,7 @@ describe('Graph Tests', () => {
 
     describe('clear method clears graph instance', () => {
         it('should clear graph instance', () => {
-            const graph = new Graph(nodesWithNoData);
+            const graph = new Graph(cloneDeepNodesList(nodesWithNoData));
             graph.clear();
             expect(graph.nodes.size).toBe(0);
         });
