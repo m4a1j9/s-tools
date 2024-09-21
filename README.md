@@ -6,25 +6,17 @@ Common tools (hereinafter referred to as **ct**) - a common JavaScript data stru
 
 Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
 
-Current version renewals (1.0.1) (see **Prerequesites** a bit below):
+Current version renewals (1.0.2) (see **Prerequesites** a bit below):
 
-- Number regular expressions fix: g flag was removed to handle regexp test method consistently (avoiding hidden index impact)
+- **clear** method for **Graph** and **Tree** template classes (removes all nodes from a graph or node instance)
+- Input nodes validation within **Graph** and **Tree** constructors (now they are added via **addNode** method with all its checks)
+- **isLeaf**  boolean flag (**nodeData** property member) for **Tree** nodes, and related logic of its auto handling during adding and removing nodes (now each newly added node has **isLeaf** === **true**, if node receives  some child node, its **isLeaf** then demolished)
 
 Next scheduled **major** updates:
 
 - **Table** class template
 - Default pathfinder template based on BFS algorithm
 - Default leveling step function based on DFS algorithm
-
-Next scheduled **minor** updates:
-
-- **clear** method for **Graph** template class
-
-- Input nodes validation within **Graph** and **Tree** constructors
-
-- **isLeaf**  boolean flag for **Tree** nodes, and related logic of its auto handling during adding and removing nodes
-
-  
 
 ## Prerequisites
 
@@ -186,6 +178,7 @@ Some methods are not covered above:
 - **setFlattenProcedure** - initializes **flatten** method via user defined leveling step function
 - **setPathFinderProcedure** - initializes **buildPath** method via user defined pathfinder
 - **buildFlattenProcedure**, **buildPathFinder** - are used for two previous method, it is highly recommended to avoid calling these methods
+- **clear** - removes all nodes from a **Graph** instance (so **nodes** Map becomes empty)
 
 
 
@@ -234,7 +227,7 @@ type PathBuilder<NodeData = void> = (
 
 ```
 
-**<u>USE WITH CAUTION</u>**: source iterable is passed to **Map** constructor as it is, with no input nodes validation (for now). You should not expect graph constructor to build edges. In future updates such validation is **planned to be implemented**.
+**Graph** constructor utilizes **addNode** method under the hood: all nodes from **sourceIterable** are added keeping their input order. Particularly, if some input node references to inexistent node or has some other wrong data, error will be thrown
 
 If no constructor arguments are specified, empty graph instance is created.
 
@@ -386,15 +379,13 @@ import {Tree} from '@vyacheslav97/ct';
 
 - **nodeData** field becomes mandatory (but remains extensible): it has to contain **parentNodeId** field for each tree node except root one
 
-- Constructor signature changes slightly: 
+- **clear** method calls **Graph** class clear method and sets **rootNodeId** = '' (empty string)
 
-  ```ts
-  constructor(
-          rootNodeId: string = '',
-          sourceIterable?: Iterable<[string, GraphNodeInterface<NodeData>]>,
-          config?: GraphConfig<NodeData>,
-      )
-  ```
+- **Tree** constructor adds nodes using its **addNode** method
+
+- Each leaf node now has **isLeaf** **nodeData** property, set to **true**. It is handled automatically, so no needs to mess with it manually. 
+
+
 
 <a id="mutationsHistory"></a>
 
@@ -452,7 +443,7 @@ interface MutationsHistoryInterface<HistoryUnitType> {
 
 
 
-A **MutationsHistory** instance can be created using predefined committed history list via **MutationsHis** class constructor:
+A **MutationsHistory** instance can be created using predefined committed history list via **MutationsHistory** class constructor:
 
 ```ts
 constructor(sourceIterable?: Iterable<HistoryUnitType>) {
