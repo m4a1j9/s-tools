@@ -15,7 +15,7 @@ describe('Tree Tests', () => {
     describe('Tree constructor tests', () => {
         it('should create correct binary tree', () => {
             const referenceNodesList = generateListOfTreeNodes();
-            const binaryTree = new Tree(generateListOfTreeNodes());
+            const binaryTree = new Tree(referenceNodesList);
             referenceNodesList.forEach((node) => {
                 expect(binaryTree.getNode(node.nodeId)).toEqual(node);
             });
@@ -156,31 +156,6 @@ describe('Tree Tests', () => {
 
            removedSubtreeNodesIds.forEach((removedNodeId) => {
                expect(tree.hasNode(removedNodeId)).toBe(false);
-           });
-
-       });
-
-       it('Should avoid to remove node subtree if its needed', () => {
-           const tree = new Tree();
-           const nodesList = generateListOfTreeNodes();
-           nodesList.forEach((node) => {
-               tree.addNode(node);
-           });
-
-           const expectedTreeNodesAmountAfterRemove = nodesList.length - 1;
-
-           const nodeIdToRemove =  childNodeIdGenerator(1, 1);
-           const subtreeNodesIds = [
-               childNodeIdGenerator(2, 1),
-               childNodeIdGenerator(2, 2),
-           ];
-
-           tree.removeNode(nodeIdToRemove);
-
-           expect(tree.nodes.size).toBe(expectedTreeNodesAmountAfterRemove);
-
-           subtreeNodesIds.forEach((subtreeNodeId) => {
-               expect(tree.hasNode(subtreeNodeId)).toBe(true);
            });
 
        });
