@@ -137,7 +137,7 @@ keyValuepairConcatenated(new Map([[1, 1], [2, 2]])); // results in '1122'
 
 ## Graph abstract class
 
-Graph abstract class implements oriented graph abstraction with basic graph content manipulations: adding nodes, deleting nodes. 
+Graph abstract class implements directed graph abstraction with basic graph content manipulations: adding nodes, deleting nodes. 
 
 Graph node is represented via following generic interface:
 
@@ -228,6 +228,8 @@ type PathBuilder<NodeData = void> = (
 ```
 
 **Graph** constructor utilizes **addNode** method under the hood: all nodes from **sourceIterable** are added keeping their input order. Particularly, if some input node references to inexistent node or has some other wrong data, error will be thrown
+
+**BE ADVISED!!!** **Graph** constructor, as well as **Tree** constructor, as well as **both** classes **addNode** methods **mutate** their arguments.
 
 If no constructor arguments are specified, empty graph instance is created.
 
