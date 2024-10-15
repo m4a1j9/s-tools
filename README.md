@@ -6,11 +6,10 @@ Common tools (hereinafter referred to as **ct**) - a common JavaScript data stru
 
 Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
 
-Current version renewals (1.0.2) (see **Prerequesites** a bit below):
+Current version renewals (1.0.3) (see **Prerequesites** a bit below):
 
-- **clear** method for **Graph** and **Tree** template classes (removes all nodes from a graph or node instance)
-- Input nodes validation within **Graph** and **Tree** constructors (now they are added via **addNode** method with all its checks)
-- **isLeaf**  boolean flag (**nodeData** property member) for **Tree** nodes, and related logic of its auto handling during adding and removing nodes (now each newly added node has **isLeaf** === **true**, if node receives  some child node, its **isLeaf** then demolished)
+- Imports huge bug fix (webpack and the rest became unable to assemble package due to type: module)
+- **ErrorWithData** template class
 
 Next scheduled **major** updates:
 
@@ -28,6 +27,7 @@ tsconfig.json **moduleResolution** has to be set to **node**
 - [Graph abstract class](#GraphAbstractClass)
 - [Tree abstract class](#TreeAbstractClass)
 - [Mutations history template class](#mutationsHistory)
+- [ErrorWithData template class](#ErrorWithDataTemplateClass)
 - [Binary search procedure template](#binarySearch)
 - [Duplicates search procedure template](#duplicatesSearch)
 - [isNumber](#isNumber)
@@ -457,6 +457,51 @@ constructor(sourceIterable?: Iterable<HistoryUnitType>) {
 ```
 
 **MutationsHistory** is able to store whatever you plan it to: from changed objects itself to actions that mutate certain data structure. But a whole template, that rules history rules, remains the same.
+
+
+
+<a id="ErrorWithDataTemplateClass"></a>
+
+## ErrorWithData template class
+
+**ErrorWithData** template class can be imported as follows:
+
+```ts
+import {
+	ErrorWithData,
+} from '@vyacheslav97/ct';
+```
+
+This class implements interface:
+
+```ts
+export interface ErrorBaseData {
+  message: string;
+}
+
+export interface ErrorWithDataInterface<DataType extends ErrorBaseData> extends Error {
+  errorData?: DataType;
+}
+```
+
+It allows a user to provide an error some extra data of sophisticated shape
+
+Except mentioned above, **ErrorWithData** reproduces built in JS **Error** class behaviour
+
+
+
+<u>Usage example</u>
+
+```ts
+interface TestErrorData extends ErrorBaseData {
+  code: number;
+}
+
+const errorData: TestErrorData = { message: 'Test error', code: 404 };
+const error = new ErrorWithData<TestErrorData>(errorData);
+
+throw error;
+```
 
 <a id="binarySearch"></a>
 

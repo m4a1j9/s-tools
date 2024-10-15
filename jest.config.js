@@ -1,17 +1,13 @@
-import {pathsToModuleNameMapper} from 'ts-jest';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const { pathsToModuleNameMapper } = require('ts-jest');
+const fs = require('fs');
+const path = require('path');
 
-// Convert the module URL to a file path
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+// Получаем путь к tsconfig.json
 const tsconfigPath = path.resolve(__dirname, './tsconfig.json');
 const tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf8'));
 
 /** @type {import('ts-jest').JestConfigWithTsJest} */
-export default {
+module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   transform: {
