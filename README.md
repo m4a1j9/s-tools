@@ -1,8 +1,8 @@
-# <u>Common tools (ct, also @vyacheslav97/ct)</u>
+# <u>Structure tools (fork of st, also @vyacheslav97/ct)</u>
 
 
 
-Common tools (hereinafter referred to as **ct**) - a common JavaScript data structures and associated processing procedures package ([package repository](https://github.com/VyacheslavMishin/ct/tree/master)). 
+Structure tools (hereinafter referred to as **st**) - a common JavaScript data structures and associated processing procedures package ([package repository](https://github.com/m4a1j9/s-tools/edit/master)). 
 
 Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
 
