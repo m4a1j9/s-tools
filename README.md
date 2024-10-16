@@ -1,4 +1,4 @@
-# <u>Structure tools (fork of st, also @vyacheslav97/ct)</u>
+# <u>Structure tools (fork of ct, also @vyacheslav97/ct)</u>
 
 
 
