@@ -1,8 +1,10 @@
 {
-  "name": "@vyacheslav97/ct",
+  "name": "s-tools",
   "version": "1.0.3",
   "description": "",
   "keywords": [
+    "s-tools",
+    "structure",
     "tools",
     "common tools",
     "standard tools",
