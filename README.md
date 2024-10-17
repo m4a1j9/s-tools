@@ -2,7 +2,7 @@
 
 
 
-Structure tools (hereinafter referred to as **st**) - a common JavaScript data structures and associated processing procedures package ([package repository](https://github.com/m4a1j9/str-tools/edit/master)). 
+Structure tools (hereinafter referred to as **st**) - a common JavaScript data structures and associated processing procedures package ([package repository](https://github.com/m4a1j9/struct-tools/edit/master)). 
 
 Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
 

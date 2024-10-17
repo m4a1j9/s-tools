@@ -1,14 +1,9 @@
 {
-<<<<<<< HEAD
-  "name": "s-tools",
+  "name": "struct-tools",
   "version": "1.0.4",
-=======
-  "name": "str-tools",
-  "version": "1.0.3",
->>>>>>> 9d3471b (changed package name)
   "description": "",
   "keywords": [
-    "str-tools",
+    "struct-tools",
     "structure",
     "tools",
     "common tools",
