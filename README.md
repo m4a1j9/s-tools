@@ -6,10 +6,11 @@ Common tools (hereinafter referred to as **ct**) - a common JavaScript data stru
 
 Tip: questions bother your head? Feel free to [contact me](https://t.me/WernerWalter)
 
-Current version renewals (1.0.3) (see **Prerequesites** a bit below):
+Current version renewals (1.0.4) (see **Prerequesites** a bit below):
 
-- Imports huge bug fix (webpack and the rest became unable to assemble package due to type: module)
-- **ErrorWithData** template class
+- Added several extra iterable converters: **createMapToMap**, **createArrayToArray**, **createSetToSet**, **createStringToString**
+- Added two aliases, **groupByKey**, **groupByKey** for duplicates searcher procedure
+- **uniqueValuesSearcher** procedure was implemented (see below)
 
 Next scheduled **major** updates:
 
@@ -30,6 +31,7 @@ tsconfig.json **moduleResolution** has to be set to **node**
 - [ErrorWithData template class](#ErrorWithDataTemplateClass)
 - [Binary search procedure template](#binarySearch)
 - [Duplicates search procedure template](#duplicatesSearch)
+- [Unique values search procedure template](#uniqueValuesSearch)
 - [isNumber](#isNumber)
 - [Decimal integer RegExp](#integerRegExp)
 - [Decimal float RegExp](#floatRegExp)
@@ -617,6 +619,27 @@ objectDuplicatesSearcher([
 
 
 ```
+
+<a id="uniqueValuesSearch"></a>
+
+## Unique values search procedure template
+
+**Unique values search** procedure template import:
+
+```ts
+import {
+    uniqueValuesSearcher,
+    createUniqueValuesSearcher,
+} from '@vyacheslav97/ct';
+```
+
+**uniqueValuesSearcher** accepts a uniform array and filters unique values out of it. This function requires two arguments:
+
+- **sourceArray** - source array to filter unique values out of it
+
+- **uniqueFeatureValueExtractor** - a function, that derives a value of uniqueness feature (according to this value two objects are considered as identical)
+
+  It is recommended to use **createUniqueValuesSearcher** over **uniqueValuesSearcher**. **createUniqueValuesSearcher** creates an instance of **uniqueValuesSearcher** using a particular uniqueness feature value extractor function
 
 <a id="isNumber"></a>
 

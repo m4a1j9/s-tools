@@ -52,3 +52,9 @@ export const buildDuplicatesSearcher = <T, V = T>(
 ) => {
     return (source: Iterable<T>) => duplicatesSearcher<T, V>(source, valueExtractor);
 };
+
+// <u>**duplicatesSearcher**</u> function alias
+export const groupByKey = duplicatesSearcher;
+
+// <u>**buildDuplicatesSearcher**</u> function alias
+export const buildGroupByKey = buildDuplicatesSearcher;
