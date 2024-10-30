@@ -5,12 +5,22 @@ import {createIterableTransformer} from "@implementations";
 import {
     SingleToSingle,
     SingleToPair,
-    PairToSingle,
+    PairToSingle, PairToPair,
 } from '@interfaces';
 
 
 // "arrayTo" converters
 /**********************************************************************************************************************/
+
+/**
+ * Creates <u>**Array**</u> to <u>**Array**</u> converter
+ * @param arrayItemTransformer <u>**Array**</u> item transformer, produces a new array item
+ */
+export function createArrayToArray<SourceArrayItem, TargetArrayItem>(
+  arrayItemTransformer: SingleToSingle<SourceArrayItem, TargetArrayItem>,
+) {
+    return createIterableTransformer<SourceArrayItem[], TargetArrayItem, TargetArrayItem[]>(Array, arrayItemTransformer);
+}
 
 /**
  * Creates <u>**Array**</u> to <u>**Map**</u> converter
@@ -49,6 +59,17 @@ export function createArrayToString<ArrayItemType>(
 // "mapTo" converters
 /**********************************************************************************************************************/
 
+
+/**
+ * Creates <u>**Map**</u> to <u>**Map**</u> converter
+ * @param mapItemTransformer <u>**Map**</u> item transformer, retrieves a new map item
+ */
+export function createMapToMap<K1, V1, K2, V2>(
+  mapItemTransformer: PairToPair<K1, V1, K2, V2>,
+) {
+    return createIterableTransformer<Map<K1, V1>, [K2, V2], Map<K2, V2>>(Map, mapItemTransformer);
+}
+
 /**
  * Creates <u>**Map**</u> to <u>**Array**</u> converter
  * @param mapItemTransformer <u>**Map**</u> item transformer, retrieves Array item from Map item
@@ -84,6 +105,16 @@ export function createMapToString<K, V>(
 
 // "setTo" converters
 /**********************************************************************************************************************/
+
+/**
+ * Creates <u>**Set**</u> to <u>**Set**</u> converter
+ * @param setItemTransformer **Set** item transformer, forms a Set item out Set item
+ */
+export function createSetToSet<SourceSetItem, TargetSetItem>(
+  setItemTransformer: SingleToSingle<SourceSetItem, TargetSetItem>,
+) {
+    return createIterableTransformer<Set<SourceSetItem>, TargetSetItem, Set<TargetSetItem>>(Set, setItemTransformer);
+}
 
 /**
  * Creates <u>**Set**</u> to <u>**Array**</u> converter
@@ -122,8 +153,19 @@ export function createSetToString<SetItemType>(
 /**********************************************************************************************************************/
 
 /**
+ * Creates <u>**string**</u> to <u>**string**</u> converter
+ * @param characterTransformer character transformer, forms string item out a character
+ */
+export function createStringToString(
+  characterTransformer?: SingleToSingle<string, string>,
+) {
+    //@ts-ignore
+    return createIterableTransformer<string, string, string>(String, characterTransformer);
+}
+
+/**
  * Creates <u>**string**</u> to <u>**Array**</u> converter
- * @param characterTransformer character transformer, forms Array item out character
+ * @param characterTransformer character transformer, forms Array item out a character
  */
 export function createStringToArray<ArrayItemType>(
     characterTransformer?: SingleToSingle<string, ArrayItemType>,
@@ -134,7 +176,7 @@ export function createStringToArray<ArrayItemType>(
 
 /**
  * Creates <u>**string**</u> to <u>**Map**</u> converter
- * @param characterTransformer character transformer, forms Map item out character
+ * @param characterTransformer character transformer, forms Map item out a character
  */
 export function createStringToMap<K, V>(
     characterTransformer: SingleToPair<string, K, V>,
@@ -145,7 +187,7 @@ export function createStringToMap<K, V>(
 
 /**
  * Creates <u>**string**</u> to <u>**Set**</u> converter
- * @param characterTransformer character transformer, forms Set item out character
+ * @param characterTransformer character transformer, forms Set item out a character
  */
 export function createStringToSet<SetItemType>(
     characterTransformer?: SingleToSingle<string, SetItemType>,
